@@ -9,7 +9,6 @@
 7z          application/x-7z-compressed                                               base64          
 @dir        application/x-director                                                    base64          
 @dxr        application/x-director                                                    base64          
-Z           application/x-compress                                                    base64          
 aab         application/x-authorware-bin                                              base64          
 aac         audio/x-aac                                                               base64          
 aam         application/x-authorware-map                                              base64          

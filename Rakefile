@@ -36,7 +36,7 @@ task :rebuild_db do
   index = {}
 
   MIME::Types.each do |type|
-    type.extensions.each {|ext| (index[ext] ||= []) << type}
+    type.extensions.each {|ext| (index[ext.downcase] ||= []) << type}
   end
 
   index.each do |k,list|
@@ -50,16 +50,31 @@ task :rebuild_db do
     buffer << [ext.dup, first.content_type.dup, first.encoding.dup]
   end
 
-  buffer.sort!{|a,b| a[0] <=> b[0]}
-
   pad(buffer)
 
-  File.open("lib/db/mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
+  buffer.sort!{|a,b| a[0] <=> b[0]}
+
+  File.open("lib/db/ext_mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
     buffer.each do |row|
       f.write "#{row[0]} #{row[1]} #{row[2]}\n"
     end
   end
 
-  puts "#{buffer.count} rows written to lib/db/mime.db"
+  puts "#{buffer.count} rows written to lib/db/ext_mime.db"
+
+  buffer.sort!{|a,b| a[1] <=> b[1]}
+
+  File.open("lib/db/content_type_mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
+    last = nil
+    count = 0
+    buffer.each do |row|
+      unless last == row[1]
+        f.write "#{row[0]} #{row[1]} #{row[2]}\n"
+        count += 1
+      end
+      last = row[1]
+    end
+    puts "#{count} rows written to lib/db/content_type_mime.db"
+  end
 
 end

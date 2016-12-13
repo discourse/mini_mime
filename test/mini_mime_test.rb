@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'mime/types/columnar'
 
 class MiniMimeTest < Minitest::Test
   def test_that_it_has_a_version_number
@@ -16,8 +17,29 @@ class MiniMimeTest < Minitest::Test
   end
 
   def test_binary
+    # note this is not strictly correct but .Z is the only
+    # upper case extension, being correct here seems overkill
+    assert MiniMime.binary?("a.z")
     assert MiniMime.binary?("a.Z")
     refute MiniMime.binary?("a.txt")
     refute MiniMime.binary?("a.frog")
+  end
+
+  def test_binary_content_type
+    assert MiniMime.binary_content_type?("application/x-compress")
+    refute MiniMime.binary_content_type?("something-fake")
+    refute MiniMime.binary_content_type?("text/plain")
+  end
+
+  def test_full_parity_with_mime_types
+    exts = Set.new
+    MIME::Types.each do |type|
+      type.extensions.each{|ext| exts << ext}
+    end
+
+    exts.each do |ext|
+      type = MIME::Types.type_for("a.#{ext}").first
+      assert_equal type.content_type, MiniMime.content_type("a.#{ext}")
+    end
   end
 end
