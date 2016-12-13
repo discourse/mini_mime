@@ -37,7 +37,7 @@ module MiniMime
         extension.sub!(".", "")
         if extension.length > 0
           LOCK.synchronize do
-            @db = new
+            @db ||= new
             @db.lookup(extension)
           end
         else
