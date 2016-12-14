@@ -89,7 +89,7 @@ module MiniMime
         @file = File.open(@path)
 
         @row_length = @file.readline.length
-        @file_length = @file.size
+        @file_length = File.size(@path)
         @rows = @file_length / @row_length
 
         @hit_cache = Cache.new(MAX_CACHED)
