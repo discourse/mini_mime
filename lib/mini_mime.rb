@@ -2,7 +2,6 @@ require "mini_mime/version"
 require "thread"
 
 module MiniMime
-
   def self.lookup_by_filename(filename)
     Db.lookup_by_filename(filename)
   end
@@ -15,8 +14,9 @@ module MiniMime
     BINARY_ENCODINGS = %w(base64 8bit)
 
     attr_accessor :extension, :content_type, :encoding
+
     def initialize(buffer)
-      @extension,@content_type,@encoding = buffer.split(/\s+/).map!(&:freeze)
+      @extension, @content_type, @encoding = buffer.split(/\s+/).map!(&:freeze)
     end
 
     def [](idx)
@@ -60,18 +60,15 @@ module MiniMime
       end
     end
 
-
     class Cache
       def initialize(size)
         @size = size
         @hash = {}
       end
 
-      def []=(key,val)
+      def []=(key, val)
         rval = @hash[key] = val
-        if @hash.length > @size
-          @hash.shift
-        end
+        @hash.shift if @hash.length > @size
         rval
       end
 
@@ -81,7 +78,6 @@ module MiniMime
     end
 
     class RandomAccessDb
-
       MAX_CACHED = 100
 
       def initialize(name, sort_order)
@@ -113,7 +109,7 @@ module MiniMime
         end
       end
 
-      #lifted from marcandre/backports
+      # lifted from marcandre/backports
       def lookup_uncached(val)
         from = 0
         to = @rows - 1
@@ -139,7 +135,6 @@ module MiniMime
         @file.seek(row*@row_length)
         Info.new(@file.readline)
       end
-
     end
 
     def initialize
@@ -154,6 +149,5 @@ module MiniMime
     def lookup_by_content_type(content_type)
       @content_type_db.lookup(content_type)
     end
-
   end
 end
