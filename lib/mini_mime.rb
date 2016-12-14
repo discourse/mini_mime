@@ -2,36 +2,18 @@ require "mini_mime/version"
 require "thread"
 
 module MiniMime
-  BINARY_ENCODINGS = %w(base64 8bit)
 
-  # return true if this filename is known to have binary encoding
-  #
-  # puts MiniMime.binary?("file.gif") => true
-  # puts MiniMime.binary?("file.txt") => false
-  def self.binary?(filename)
-    info = Db.lookup_by_filename(filename)
-    !!(info && BINARY_ENCODINGS.include?(info.encoding))
+  def self.lookup_by_filename(filename)
+    Db.lookup_by_filename(filename)
   end
 
-  # return true if this content type is known to have binary encoding
-  #
-  # puts MiniMime.binary_content_type?("text/plain") => false
-  # puts MiniMime.binary?("application/x-compress") => true
-  def self.binary_content_type?(mime)
-    info = Db.lookup_by_content_type(mime)
-    !!(info && BINARY_ENCODINGS.include?(info.encoding))
-  end
-
-  # return first matching content type for a file
-  #
-  # puts MiniMime.content_type("test.xml") => "application/xml"
-  # puts MiniMime.content_type("test.gif") => "image/gif"
-  def self.content_type(filename)
-    info = Db.lookup_by_filename(filename)
-    info && info.content_type
+  def self.lookup_by_content_type(mime)
+    Db.lookup_by_content_type(mime)
   end
 
   class Info
+    BINARY_ENCODINGS = %w(base64 8bit)
+
     attr_accessor :extension, :content_type, :encoding
     def initialize(buffer)
       @extension,@content_type,@encoding = buffer.split(/\s+/).map!(&:freeze)
@@ -45,6 +27,10 @@ module MiniMime
       elsif idx == 2
         @encoding
       end
+    end
+
+    def binary?
+      BINARY_ENCODINGS.include?(encoding)
     end
   end
 

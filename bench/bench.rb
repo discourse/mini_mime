@@ -25,7 +25,7 @@ puts "Total retained:  #{result.total_retained_memsize} bytes (#{result.total_re
 
 Benchmark.ips do |bm|
   bm.report 'cached content_type lookup MiniMime' do
-    MiniMime.content_type("a.txt")
+    MiniMime.lookup_by_filename("a.txt").content_type
   end
 
   bm.report 'content_type lookup Mime::Types' do
@@ -43,7 +43,7 @@ end
 
 Benchmark.ips do |bm|
   bm.report 'uncached content_type lookup MiniMime' do
-    MiniMime.content_type("a.txt")
+    MiniMime.lookup_by_filename("a.txt").content_type
   end
 
   bm.report 'content_type lookup Mime::Types' do

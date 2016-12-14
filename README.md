@@ -18,6 +18,22 @@ Or install it yourself as:
 
     $ gem install mini_mime
 
+## Usage
+
+```
+require 'mini_mime'
+
+MiniMime.lookup_by_filename("a.txt").content_type
+# => "text/plain"
+
+MiniMime.lookup_by_content_type("text/plain").extension
+# => "txt"
+
+MiniMime.lookup_by_content_type("text/plain").binary?
+# => false
+
+```
+
 ## Performance
 
 MiniMime is optimised to minimize memory usage. It keeps a cache of 100 mime type lookups (and 100 misses). There are benchmarks in the (bench directory)[https://github.com/discourse/mini_mime/bench/bench.rb]
@@ -56,6 +72,14 @@ As a general guideline, cached lookups are 2x faster than MIME::Types equivelent
 
 
 ## Development
+
+MiniMime uses the officially maintained list of mime types at (mime-types-data)[https://github.com/mime-types/mime-types-data] repo to build the internal database.
+
+To update the database run:
+
+```ruby
+bundle exec rake rebuild_db
+```
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
