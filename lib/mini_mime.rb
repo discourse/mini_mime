@@ -42,7 +42,7 @@ module MiniMime
       return unless extension
       extension.sub!(".", "")
       extension.downcase!
-      return nil unless extension.length.positive?
+      return nil unless extension.length > 0
       LOCK.synchronize do
         @db ||= new
         @db.lookup_by_extension(extension)
