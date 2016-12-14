@@ -1,5 +1,9 @@
 require 'test_helper'
-require 'mime/types/columnar'
+
+begin
+  require 'mime/types/columnar'
+rescue LoadError
+end
 
 class MiniMimeTest < Minitest::Test
   def test_that_it_has_a_version_number
@@ -31,15 +35,17 @@ class MiniMimeTest < Minitest::Test
     refute MiniMime.lookup_by_content_type("text/plain").binary?
   end
 
-  def test_full_parity_with_mime_types
-    exts = Set.new
-    MIME::Types.each do |type|
-      type.extensions.each{|ext| exts << ext}
-    end
+  if defined? MIME::Types
+    def test_full_parity_with_mime_types
+      exts = Set.new
+      MIME::Types.each do |type|
+        type.extensions.each{|ext| exts << ext}
+      end
 
-    exts.each do |ext|
-      type = MIME::Types.type_for("a.#{ext}").first
-      assert_equal type.content_type, MiniMime.lookup_by_filename("a.#{ext}").content_type
+      exts.each do |ext|
+        type = MIME::Types.type_for("a.#{ext}").first
+        assert_equal type.content_type, MiniMime.lookup_by_filename("a.#{ext}").content_type
+      end
     end
   end
 end
