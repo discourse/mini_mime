@@ -2,7 +2,6 @@ require "mini_mime/version"
 require "thread"
 
 module MiniMime
-
   def self.lookup_by_filename(filename)
     Db.lookup_by_filename(filename)
   end
@@ -15,8 +14,9 @@ module MiniMime
     BINARY_ENCODINGS = %w(base64 8bit)
 
     attr_accessor :extension, :content_type, :encoding
+
     def initialize(buffer)
-      @extension,@content_type,@encoding = buffer.split(/\s+/).map!(&:freeze)
+      @extension, @content_type, @encoding = buffer.split(/\s+/).map!(&:freeze)
     end
 
     def [](idx)
@@ -39,17 +39,13 @@ module MiniMime
 
     def self.lookup_by_filename(filename)
       extension = File.extname(filename)
-      if extension
-        extension.sub!(".", "")
-        extension.downcase!
-        if extension.length > 0
-          LOCK.synchronize do
-            @db ||= new
-            @db.lookup_by_extension(extension)
-          end
-        else
-          nil
-        end
+      return unless extension
+      extension.sub!(".", "")
+      extension.downcase!
+      return nil unless extension.length.positive?
+      LOCK.synchronize do
+        @db ||= new
+        @db.lookup_by_extension(extension)
       end
     end
 
@@ -60,18 +56,15 @@ module MiniMime
       end
     end
 
-
     class Cache
       def initialize(size)
         @size = size
         @hash = {}
       end
 
-      def []=(key,val)
+      def []=(key, val)
         rval = @hash[key] = val
-        if @hash.length > @size
-          @hash.shift
-        end
+        @hash.shift if @hash.length > @size
         rval
       end
 
@@ -81,7 +74,6 @@ module MiniMime
     end
 
     class RandomAccessDb
-
       MAX_CACHED = 100
 
       def initialize(name, sort_order)
@@ -102,18 +94,13 @@ module MiniMime
         @hit_cache.fetch(val) do
           @miss_cache.fetch(val) do
             data = lookup_uncached(val)
-            if data
-              @hit_cache[val] = data
-            else
-              @miss_cache[val] = nil
-            end
-
+            data ? @hit_cache[val] = data : @miss_cache[val] = nil
             data
           end
         end
       end
 
-      #lifted from marcandre/backports
+      # lifted from marcandre/backports
       def lookup_uncached(val)
         from = 0
         to = @rows - 1
@@ -139,7 +126,6 @@ module MiniMime
         @file.seek(row*@row_length)
         Info.new(@file.readline)
       end
-
     end
 
     def initialize
@@ -154,6 +140,5 @@ module MiniMime
     def lookup_by_content_type(content_type)
       @content_type_db.lookup(content_type)
     end
-
   end
 end
