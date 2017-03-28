@@ -46,8 +46,13 @@ task :rebuild_db do
   buffer = []
 
   index.each do |ext, list|
-    first = list.first
-    buffer << [ext.dup, first.content_type.dup, first.encoding.dup]
+    mime_type = nil
+    list.each do |type|
+      mime_type = type
+      break unless type.obsolete?
+    end
+    mime_type = list.first if mime_type.obsolete?
+    buffer << [ext.dup, mime_type.content_type.dup, mime_type.encoding.dup]
   end
 
   pad(buffer)
