@@ -67,7 +67,7 @@ task :rebuild_db do
 
   puts "#{buffer.count} rows written to lib/db/ext_mime.db"
 
-  buffer.sort!{|a,b| a[1] <=> b[1]}
+  buffer.sort!{|a,b| [a[1], a[0]] <=> [b[1], b[0]]}
 
   File.open("lib/db/content_type_mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
     last = nil
