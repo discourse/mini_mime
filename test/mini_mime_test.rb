@@ -48,21 +48,9 @@ class MiniMimeTest < Minitest::Test
       exts.each do |ext|
         types = MIME::Types.type_for("a.#{ext}")
 
-        type = nil
-        types.each do |t|
-          type = t
-          break unless t.obsolete?
-        end
-
-        if type.obsolete?
-          types.each do |t|
-            type = t
-            break unless t.registered?
-          end
-          unless type.registered?
-            type = types.first
-          end
-        end
+        type = types.detect { |t| !t.obsolete? }
+        type ||= types.detect(&:registered)
+        type ||= types.first
 
         # if type.content_type != MiniMime.lookup_by_filename("a.#{ext}").content_type
         #   puts "#{ext} Expected #{type.content_type} Got #{MiniMime.lookup_by_filename("a.#{ext}").content_type}"

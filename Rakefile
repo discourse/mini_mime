@@ -46,12 +46,9 @@ task :rebuild_db do
   buffer = []
 
   index.each do |ext, list|
-    mime_type = nil
-    list.each do |type|
-      mime_type = type
-      break unless type.obsolete?
-    end
-    mime_type = list.first if mime_type.obsolete?
+    mime_type = list.detect { |t| !t.obsolete? }
+    mime_type ||= list.detect(&:registered)
+    mime_type ||= list.first
     buffer << [ext.dup, mime_type.content_type.dup, mime_type.encoding.dup]
   end
 
@@ -67,7 +64,7 @@ task :rebuild_db do
 
   puts "#{buffer.count} rows written to lib/db/ext_mime.db"
 
-  buffer.sort!{|a,b| a[1] <=> b[1]}
+  buffer.sort!{|a,b| [a[1], a[0]] <=> [b[1], b[0]]}
 
   File.open("lib/db/content_type_mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
     last = nil
