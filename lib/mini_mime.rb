@@ -1,18 +1,30 @@
 require "mini_mime/version"
 require "thread"
 begin
-  require "micro_mime"
+  require "micro_mime" if RUBY_PLATFORM != "java"
 rescue LoadError
-  puts "no micro_mime"
 end
 
 module MiniMime
+  def self.db_instnance
+    @db_instnance ||= defined?(MicroMime) ? MicroMime : Db.new
+  end
+
   def self.lookup_by_filename(filename)
-    Db.lookup_by_filename(filename)
+    extension = File.extname(filename)
+    if extension
+      extension.sub!(".", "")
+      extension.downcase!
+      if extension.length > 0
+        db_instnance.lookup_by_extension(extension)
+      else
+        nil
+      end
+    end
   end
 
   def self.lookup_by_content_type(mime)
-    Db.lookup_by_content_type(mime)
+    db_instnance.lookup_by_content_type(mime)
   end
 
   class Info
@@ -41,29 +53,6 @@ module MiniMime
 
   class Db
     LOCK = Mutex.new
-
-    def self.lookup_by_filename(filename)
-      extension = File.extname(filename)
-      if extension
-        extension.sub!(".", "")
-        extension.downcase!
-        if extension.length > 0
-          LOCK.synchronize do
-            @db ||= defined?(MicroMime) ? MicroMime : new
-            @db.lookup_by_extension(extension)
-          end
-        else
-          nil
-        end
-      end
-    end
-
-    def self.lookup_by_content_type(content_type)
-      LOCK.synchronize do
-        @db ||= defined?(MicroMime) ? MicroMime : new
-        @db.lookup_by_content_type(content_type)
-      end
-    end
 
     class Cache
       def initialize(size)
@@ -148,11 +137,15 @@ module MiniMime
     end
 
     def lookup_by_extension(extension)
-      @ext_db.lookup(extension)
+      LOCK.synchronize do
+        @ext_db.lookup(extension)
+      end
     end
 
     def lookup_by_content_type(content_type)
-      @content_type_db.lookup(content_type)
+      LOCK.synchronize do
+        @content_type_db.lookup(content_type)
+      end
     end
   end
 end
