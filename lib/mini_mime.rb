@@ -1,5 +1,10 @@
 require "mini_mime/version"
 require "thread"
+begin
+  require "micro_mime"
+rescue LoadError
+  puts "no micro_mime"
+end
 
 module MiniMime
   def self.lookup_by_filename(filename)
@@ -44,7 +49,7 @@ module MiniMime
         extension.downcase!
         if extension.length > 0
           LOCK.synchronize do
-            @db ||= new
+            @db ||= defined?(MicroMime) ? MicroMime : new
             @db.lookup_by_extension(extension)
           end
         else
@@ -55,7 +60,7 @@ module MiniMime
 
     def self.lookup_by_content_type(content_type)
       LOCK.synchronize do
-        @db ||= new
+        @db ||= defined?(MicroMime) ? MicroMime : new
         @db.lookup_by_content_type(content_type)
       end
     end
