@@ -66,6 +66,20 @@ task :rebuild_db do
 
   buffer.sort!{|a,b| [a[1], a[0]] <=> [b[1], b[0]]}
 
+  # strip cause we are going to re-pad
+  buffer.each do |row|
+    row.each do |col|
+      col.strip!
+    end
+  end
+
+  # we got to confirm we pick the right extension for each type
+  buffer.each do |row|
+    row[0] = MIME::Types.type_for("xyz.#{row[0].strip}")[0].extensions[0].dup
+  end
+
+  pad(buffer)
+
   File.open("lib/db/content_type_mime.db", File::CREAT|File::TRUNC|File::RDWR) do |f|
     last = nil
     count = 0

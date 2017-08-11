@@ -38,6 +38,10 @@ class MiniMimeTest < Minitest::Test
     refute MiniMime.lookup_by_content_type("text/plain").binary?
   end
 
+  def should_prioritize_extensions_correctly
+    assert_equal MiniMime.lookup_by_content_type("text/plain").extension, "txt"
+  end
+
   if defined? MIME::Types
     def test_full_parity_with_mime_types
       exts = Set.new
