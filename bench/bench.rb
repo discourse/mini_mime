@@ -28,7 +28,7 @@ Benchmark.ips do |bm|
     MiniMime.lookup_by_filename("a.txt").content_type
   end
 
-  bm.report 'content_type lookup Mime::Types' do
+  bm.report 'content_type lookup MIME::Types' do
     MIME::Types.type_for("a.txt")[0].content_type
   end
 end
@@ -46,7 +46,7 @@ Benchmark.ips do |bm|
     MiniMime.lookup_by_filename("a.txt").content_type
   end
 
-  bm.report 'content_type lookup Mime::Types' do
+  bm.report 'content_type lookup MIME::Types' do
     MIME::Types.type_for("a.txt")[0].content_type
   end
 end

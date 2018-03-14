@@ -49,22 +49,22 @@ Total retained:  7784 bytes (62 objects)
 Warming up --------------------------------------
 cached content_type lookup MiniMime
                         52.136k i/100ms
-content_type lookup Mime::Types
+content_type lookup MIME::Types
                         32.701k i/100ms
 Calculating -------------------------------------
 cached content_type lookup MiniMime
                         641.305k (± 3.2%) i/s -      3.232M in   5.045630s
-content_type lookup Mime::Types
+content_type lookup MIME::Types
                         361.041k (± 1.5%) i/s -      1.831M in   5.073290s
 Warming up --------------------------------------
 uncached content_type lookup MiniMime
                          3.333k i/100ms
-content_type lookup Mime::Types
+content_type lookup MIME::Types
                         33.177k i/100ms
 Calculating -------------------------------------
 uncached content_type lookup MiniMime
                          33.660k (± 1.7%) i/s -    169.983k in   5.051415s
-content_type lookup Mime::Types
+content_type lookup MIME::Types
                         364.931k (± 2.8%) i/s -      1.825M in   5.004112s
 ```
 
@@ -93,4 +93,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/discou
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
