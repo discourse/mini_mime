@@ -6,6 +6,10 @@ module MiniMime
     Db.lookup_by_filename(filename)
   end
 
+  def self.lookup_by_extension(extension)
+    Db.lookup_by_extension(extension)
+  end
+
   def self.lookup_by_content_type(mime)
     Db.lookup_by_content_type(mime)
   end
@@ -42,6 +46,10 @@ module MiniMime
       return if extension.empty?
       extension.sub!('.'.freeze, ''.freeze)
       extension.downcase!
+      lookup_by_extension(extension)
+    end
+
+    def self.lookup_by_extension(extension)
       LOCK.synchronize do
         @db ||= new
         @db.lookup_by_extension(extension)

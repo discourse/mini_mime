@@ -10,6 +10,9 @@ class MiniMimeTest < Minitest::Test
     refute_nil ::MiniMime::VERSION
   end
 
+  def test_extension
+    assert_equal "application/zip", MiniMime.lookup_by_extension("zip").content_type
+  end
 
   def test_content_type
     # keep lotus alive cause these files are EVERYWHERE
