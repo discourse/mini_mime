@@ -19,9 +19,7 @@ ecma        application/ecmascript                                              
 emma        application/emma+xml                                                      base64          
 epub        application/epub+zip                                                      base64          
 exi         application/exi                                                           base64          
-otf         application/font-sfnt                                                     base64          
 pfr         application/font-tdpfr                                                    base64          
-woff        application/font-woff                                                     base64          
 gml         application/gml+xml                                                       base64          
 gpx         application/gpx+xml                                                       base64          
 gxf         application/gxf                                                           base64          
@@ -31,7 +29,6 @@ ink         application/inkml+xml                                               
 ipfix       application/ipfix                                                         base64          
 jar         application/java-archive                                                  base64          
 ser         application/java-serialized-object                                        base64          
-class       application/java-vm                                                       base64          
 js          application/javascript                                                    8bit            
 json        application/json                                                          8bit            
 jsonml      application/jsonml+json                                                   base64          
@@ -75,7 +72,6 @@ pkipath     application/pkix-pkipath                                            
 pki         application/pkixcmp                                                       base64          
 pls         application/pls+xml                                                       base64          
 ai          application/postscript                                                    8bit            
-ppt         application/powerpoint                                                    base64          
 cw          application/prs.cww                                                       base64          
 rnd         application/prs.nprend                                                    base64          
 pskcxml     application/pskc+xml                                                      base64          
@@ -325,6 +321,7 @@ thmx        application/vnd.ms-officetheme                                      
 msg         application/vnd.ms-outlook                                                base64          
 cat         application/vnd.ms-pki.seccat                                             base64          
 stl         application/vnd.ms-pki.stl                                                base64          
+ppt         application/vnd.ms-powerpoint                                             base64          
 ppam        application/vnd.ms-powerpoint.addin.macroEnabled.12                       base64          
 pptm        application/vnd.ms-powerpoint.presentation.macroEnabled.12                base64          
 sldm        application/vnd.ms-powerpoint.slide.macroEnabled.12                       base64          
@@ -492,8 +489,7 @@ zaz         application/vnd.zzazz.deck+xml                                      
 vxml        application/voicexml+xml                                                  base64          
 wif         application/watcherinfo+xml                                               base64          
 wgt         application/widget                                                        base64          
-hlp         application/winhlp                                                        base64          
-wp          application/wordperfect5.1                                                base64          
+wp5         application/wordperfect5.1                                                base64          
 wsdl        application/wsdl+xml                                                      base64          
 wspolicy    application/wspolicy+xml                                                  base64          
 wk          application/x-123                                                         base64          
@@ -538,7 +534,6 @@ gsf         application/x-font-ghostscript                                      
 psf         application/x-font-linux-psf                                              base64          
 pcf         application/x-font-pcf                                                    base64          
 snf         application/x-font-snf                                                    base64          
-ttc         application/x-font-ttf                                                    base64          
 afm         application/x-font-type1                                                  base64          
 arc         application/x-freearc                                                     base64          
 spl         application/x-futuresplash                                                base64          
@@ -569,7 +564,7 @@ lnk         application/x-ms-shortcut                                           
 wmd         application/x-ms-wmd                                                      base64          
 wmz         application/x-ms-wmz                                                      base64          
 xbap        application/x-ms-xbap                                                     base64          
-mdf         application/x-msaccess                                                    base64          
+mda         application/x-msaccess                                                    base64          
 obd         application/x-msbinder                                                    base64          
 crd         application/x-mscardfile                                                  base64          
 clp         application/x-msclip                                                      base64          
@@ -615,9 +610,6 @@ tfm         application/x-tex-tfm                                               
 texinfo     application/x-texinfo                                                     8bit            
 obj         application/x-tgif                                                        base64          
 tbk         application/x-toolbook                                                    base64          
-man         application/x-troff-man                                                   8bit            
-me          application/x-troff-me                                                    base64          
-ms          application/x-troff-ms                                                    base64          
 ustar       application/x-ustar                                                       base64          
 src         application/x-wais-source                                                 base64          
 webapp      application/x-web-app-manifest+json                                       base64          
@@ -690,6 +682,11 @@ cif         chemical/x-cif                                                      
 cmdf        chemical/x-cmdf                                                           base64          
 cml         chemical/x-cml                                                            base64          
 csml        chemical/x-csml                                                           base64          
+ttc         font/collection                                                           base64          
+otf         font/otf                                                                  base64          
+ttf         font/ttf                                                                  base64          
+woff        font/woff                                                                 base64          
+woff2       font/woff2                                                                base64          
 cgm         image/cgm                                                                 base64          
 g3          image/g3fax                                                               base64          
 gif         image/gif                                                                 base64          
@@ -765,6 +762,7 @@ ics         text/calendar                                                       
 css         text/css                                                                  8bit            
 csv         text/csv                                                                  8bit            
 html        text/html                                                                 8bit            
+markdown    text/markdown                                                             quoted-printable
 n3          text/n3                                                                   quoted-printable
 txt         text/plain                                                                quoted-printable
 dsc         text/prs.lines.tag                                                        quoted-printable
@@ -804,6 +802,7 @@ uu          text/x-uuencode                                                     
 vcs         text/x-vcalendar                                                          8bit            
 vcf         text/x-vcard                                                              8bit            
 yaml        text/x-yaml                                                               8bit            
+xml         text/xml                                                                  8bit            
 3gp         video/3gpp                                                                base64          
 3g2         video/3gpp2                                                               base64          
 dv          video/DV                                                                  base64          
