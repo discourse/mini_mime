@@ -40,7 +40,7 @@ module MiniMime
     def self.lookup_by_filename(filename)
       extension = File.extname(filename)
       return if extension.empty?
-      extension.sub!('.'.freeze, ''.freeze)
+      extension = extension[1..-1]
       extension.downcase!
       LOCK.synchronize do
         @db ||= new
