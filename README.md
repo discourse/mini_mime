@@ -36,7 +36,7 @@ MiniMime.lookup_by_content_type("text/plain").binary?
 
 ## Performance
 
-MiniMime is optimised to minimize memory usage. It keeps a cache of 100 mime type lookups (and 100 misses). There are benchmarks in the [bench directory](https://github.com/discourse/mini_mime/bench/bench.rb)
+MiniMime is optimised to minimize memory usage. It keeps a cache of 100 mime type lookups (and 100 misses). There are benchmarks in the [bench directory](https://github.com/discourse/mini_mime/blob/master/bench/bench.rb)
 
 ```
 Memory stats for requiring mime/types/columnar
