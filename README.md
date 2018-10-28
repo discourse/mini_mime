@@ -68,12 +68,11 @@ content_type lookup MIME::Types
                         364.931k (± 2.8%) i/s -      1.825M in   5.004112s
 ```
 
-As a general guideline, cached lookups are 2x faster than MIME::Types equivelent. Uncached lookups are 10x slower.
-
+As a general guideline, cached lookups are 2x faster than MIME::Types equivalent. Uncached lookups are 10x slower.
 
 ## Development
 
-MiniMime uses the officially maintained list of mime types at [mime-types-data](https://github.com/mime-types/mime-types-data)repo to build the internal database.
+MiniMime uses the officially maintained list of mime types at [mime-types-data](https://github.com/mime-types/mime-types-data) repo to build the internal database.
 
 To update the database run:
 
@@ -88,7 +87,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/discourse/mini_mime. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
