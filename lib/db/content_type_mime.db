@@ -9,7 +9,6 @@ cdmic       application/cdmi-container                                          
 cdmid       application/cdmi-domain                                                   base64          
 cdmio       application/cdmi-object                                                   base64          
 cdmiq       application/cdmi-queue                                                    base64          
-cu          application/cu-seeme                                                      base64          
 davmount    application/davmount+xml                                                  base64          
 dcm         application/dicom                                                         base64          
 dbk         application/docbook+xml                                                   base64          
@@ -27,8 +26,6 @@ gz          application/gzip                                                    
 stk         application/hyperstudio                                                   base64          
 ink         application/inkml+xml                                                     base64          
 ipfix       application/ipfix                                                         base64          
-jar         application/java-archive                                                  base64          
-ser         application/java-serialized-object                                        base64          
 js          application/javascript                                                    8bit            
 json        application/json                                                          8bit            
 jsonml      application/jsonml+json                                                   base64          
@@ -49,7 +46,6 @@ m21         application/mp21                                                    
 mp4         application/mp4                                                           base64          
 doc         application/msword                                                        base64          
 mxf         application/mxf                                                           base64          
-nc          application/netcdf                                                        base64          
 bin         application/octet-stream                                                  base64          
 oda         application/oda                                                           base64          
 opf         application/oebps-package+xml                                             base64          
@@ -59,6 +55,7 @@ onepkg      application/onenote                                                 
 oxps        application/oxps                                                          base64          
 xer         application/patch-ops-error+xml                                           base64          
 pdf         application/pdf                                                           base64          
+pgp         application/pgp-encrypted                                                 7bit            
 asc         application/pgp-signature                                                 base64          
 prf         application/pics-rules                                                    base64          
 p10         application/pkcs10                                                        base64          
@@ -86,16 +83,13 @@ mft         application/rpki-manifest                                           
 roa         application/rpki-roa                                                      base64          
 rsd         application/rsd+xml                                                       base64          
 rss         application/rss+xml                                                       base64          
-rtf         application/rtf                                                           base64          
 sbml        application/sbml+xml                                                      base64          
 scq         application/scvp-cv-request                                               base64          
 scs         application/scvp-cv-response                                              base64          
 spq         application/scvp-vp-request                                               base64          
-spp         application/scvp-vp-response                                              base64          
 sdp         application/sdp                                                           base64          
 setpay      application/set-payment-initiation                                        base64          
 setreg      application/set-registration-initiation                                   base64          
-sgml        application/sgml                                                          base64          
 soc         application/sgml-open-catalog                                             base64          
 shf         application/shf+xml                                                       base64          
 siv         application/sieve                                                         base64          
@@ -176,7 +170,6 @@ clkw        application/vnd.crick.clicker.wordbank                              
 wbs         application/vnd.criticaltools.wbs+xml                                     base64          
 pml         application/vnd.ctc-posml                                                 base64          
 ppd         application/vnd.cups-ppd                                                  base64          
-curl        application/vnd.curl                                                      base64          
 car         application/vnd.curl.car                                                  base64          
 pcurl       application/vnd.curl.pcurl                                                base64          
 dart        application/vnd.dart                                                      base64          
@@ -350,14 +343,11 @@ rpss        application/vnd.nokia.radio-presets                                 
 edm         application/vnd.novadigm.EDM                                              base64          
 edx         application/vnd.novadigm.EDX                                              base64          
 ext         application/vnd.novadigm.EXT                                              base64          
-odc         application/vnd.oasis.opendocument.chart                                  base64          
 odc         application/vnd.oasis.opendocument.chart-template                         base64          
 odb         application/vnd.oasis.opendocument.database                               base64          
-odf         application/vnd.oasis.opendocument.formula                                base64          
 odf         application/vnd.oasis.opendocument.formula-template                       base64          
 odg         application/vnd.oasis.opendocument.graphics                               base64          
 otg         application/vnd.oasis.opendocument.graphics-template                      base64          
-odi         application/vnd.oasis.opendocument.image                                  base64          
 odi         application/vnd.oasis.opendocument.image-template                         base64          
 odp         application/vnd.oasis.opendocument.presentation                           base64          
 otp         application/vnd.oasis.opendocument.presentation-template                  base64          
@@ -445,7 +435,6 @@ sus         application/vnd.sus-calendar                                        
 svd         application/vnd.svd                                                       base64          
 sis         application/vnd.symbian.install                                           base64          
 xsm         application/vnd.syncml+xml                                                base64          
-bdm         application/vnd.syncml.dm+wbxml                                           base64          
 xdm         application/vnd.syncml.dm+xml                                             base64          
 tao         application/vnd.tao.intent-module-archive                                 base64          
 cap         application/vnd.tcpdump.pcap                                              base64          
@@ -554,7 +543,9 @@ iso         application/x-iso9660-image                                         
 key         application/x-iwork-keynote-sffkey                                        base64          
 numbers     application/x-iwork-numbers-sffnumbers                                    base64          
 pages       application/x-iwork-pages-sffpages                                        base64          
+jar         application/x-java-archive                                                base64          
 jnlp        application/x-java-jnlp-file                                              base64          
+ser         application/x-java-serialized-object                                      base64          
 ltx         application/x-latex                                                       8bit            
 cpt         application/x-mac-compactpro                                              base64          
 mie         application/x-mie                                                         base64          
@@ -562,13 +553,11 @@ mobi        application/x-mobipocket-ebook                                      
 application application/x-ms-application                                              base64          
 lnk         application/x-ms-shortcut                                                 base64          
 wmd         application/x-ms-wmd                                                      base64          
-wmz         application/x-ms-wmz                                                      base64          
 xbap        application/x-ms-xbap                                                     base64          
 mda         application/x-msaccess                                                    base64          
 obd         application/x-msbinder                                                    base64          
 crd         application/x-mscardfile                                                  base64          
 clp         application/x-msclip                                                      base64          
-cmd         application/x-msdos-program                                               base64          
 exe         application/x-msdownload                                                  base64          
 m13         application/x-msmediaview                                                 base64          
 emf         application/x-msmetafile                                                  base64          
@@ -577,6 +566,7 @@ pub         application/x-mspublisher                                           
 scd         application/x-msschedule                                                  base64          
 trm         application/x-msterminal                                                  base64          
 wri         application/x-mswrite                                                     base64          
+nc          application/x-netcdf                                                      base64          
 pac         application/x-ns-proxy-autoconfig                                         base64          
 nzb         application/x-nzb                                                         base64          
 oex         application/x-opera-extension                                             base64          
@@ -625,7 +615,6 @@ xdf         application/xcap-diff+xml                                           
 xenc        application/xenc+xml                                                      base64          
 xht         application/xhtml+xml                                                     8bit            
 xml         application/xml                                                           8bit            
-dtd         application/xml-dtd                                                       8bit            
 xop         application/xop+xml                                                       base64          
 xpl         application/xproc+xml                                                     base64          
 xslt        application/xslt+xml                                                      base64          
@@ -638,6 +627,7 @@ amr         audio/AMR                                                           
 awb         audio/AMR-WB                                                              base64          
 evc         audio/EVRC                                                                base64          
 l16         audio/L16                                                                 base64          
+m4a         audio/MP4A-LATM                                                           base64          
 smv         audio/SMV                                                                 base64          
 adp         audio/adpcm                                                               base64          
 au          audio/basic                                                               base64          
@@ -669,12 +659,13 @@ aif         audio/x-aiff                                                        
 caf         audio/x-caf                                                               base64          
 flac        audio/x-flac                                                              base64          
 mka         audio/x-matroska                                                          base64          
+mid         audio/x-midi                                                              base64          
 m3u         audio/x-mpegurl                                                           base64          
 wax         audio/x-ms-wax                                                            base64          
 wma         audio/x-ms-wma                                                            base64          
-wmv         audio/x-ms-wmv                                                            base64          
 ra          audio/x-pn-realaudio                                                      base64          
 rmp         audio/x-pn-realaudio-plugin                                               base64          
+ra          audio/x-realaudio                                                         base64          
 wav         audio/x-wav                                                               base64          
 xm          audio/xm                                                                  base64          
 cdx         chemical/x-cdx                                                            base64          
@@ -704,7 +695,6 @@ tiff        image/tiff                                                          
 psd         image/vnd.adobe.photoshop                                                 base64          
 uvg         image/vnd.dece.graphic                                                    base64          
 djvu        image/vnd.djvu                                                            base64          
-sub         image/vnd.dvb.subtitle                                                    base64          
 dwg         image/vnd.dwg                                                             base64          
 dxf         image/vnd.dxf                                                             base64          
 fbs         image/vnd.fastbidsheet                                                    base64          
@@ -738,7 +728,7 @@ ppm         image/x-portable-pixmap                                             
 rgb         image/x-rgb                                                               base64          
 tga         image/x-targa                                                             base64          
 dgn         image/x-vnd.dgn                                                           base64          
-xbm         image/x-xbitmap                                                           7bit            
+xbm         image/x-xbm                                                               7bit            
 xcf         image/x-xcf                                                               base64          
 xpm         image/x-xpixmap                                                           8bit            
 xwd         image/x-xwindowdump                                                       base64          
@@ -749,7 +739,6 @@ dae         model/vnd.collada+xml                                               
 dwf         model/vnd.dwf                                                             base64          
 gdl         model/vnd.gdl                                                             base64          
 gtw         model/vnd.gtw                                                             base64          
-mts         model/vnd.mts                                                             base64          
 x_b         model/vnd.parasolid.transmit.binary                                       base64          
 x_t         model/vnd.parasolid.transmit.text                                         quoted-printable
 vtu         model/vnd.vtu                                                             base64          
@@ -765,17 +754,21 @@ html        text/html                                                           
 markdown    text/markdown                                                             quoted-printable
 n3          text/n3                                                                   quoted-printable
 txt         text/plain                                                                quoted-printable
+rst         text/prs.fallenstein.rst                                                  quoted-printable
 dsc         text/prs.lines.tag                                                        quoted-printable
 rtx         text/richtext                                                             8bit            
+rtf         text/rtf                                                                  8bit            
 sgml        text/sgml                                                                 quoted-printable
 tsv         text/tab-separated-values                                                 quoted-printable
 t           text/troff                                                                8bit            
 ttl         text/turtle                                                               quoted-printable
 uri         text/uri-list                                                             quoted-printable
 vcard       text/vcard                                                                quoted-printable
+curl        text/vnd.curl                                                             quoted-printable
 dcurl       text/vnd.curl.dcurl                                                       quoted-printable
 mcurl       text/vnd.curl.mcurl                                                       quoted-printable
 scurl       text/vnd.curl.scurl                                                       quoted-printable
+sub         text/vnd.dvb.subtitle                                                     quoted-printable
 fly         text/vnd.fly                                                              quoted-printable
 flx         text/vnd.fmi.flexstor                                                     quoted-printable
 gv          text/vnd.graphviz                                                         quoted-printable
@@ -833,6 +826,7 @@ sswf        video/vnd.sealed.swf                                                
 smov        video/vnd.sealedmedia.softseal.mov                                        base64          
 uvu         video/vnd.uvvu.mp4                                                        base64          
 viv         video/vnd.vivo                                                            base64          
+webm        video/webm                                                                base64          
 dl          video/x-dl                                                                base64          
 fli         video/x-fli                                                               base64          
 flv         video/x-flv                                                               base64          
@@ -844,6 +838,7 @@ mjpg        video/x-motion-jpeg                                                 
 asf         video/x-ms-asf                                                            base64          
 vob         video/x-ms-vob                                                            base64          
 wm          video/x-ms-wm                                                             base64          
+wmv         video/x-ms-wmv                                                            base64          
 wmx         video/x-ms-wmx                                                            base64          
 wvx         video/x-ms-wvx                                                            base64          
 avi         video/x-msvideo                                                           base64          
