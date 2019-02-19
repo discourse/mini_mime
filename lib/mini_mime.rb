@@ -14,6 +14,16 @@ module MiniMime
     Db.lookup_by_content_type(mime)
   end
 
+  module Configuration
+    class << self
+      attr_accessor :ext_db_path
+      attr_accessor :content_type_db_path
+    end
+
+    self.ext_db_path = File.expand_path("../db/ext_mime.db", __FILE__)
+    self.content_type_db_path = File.expand_path("../db/content_type_mime.db", __FILE__)
+  end
+
   class Info
     BINARY_ENCODINGS = %w(base64 8bit)
 
@@ -83,8 +93,8 @@ module MiniMime
     class RandomAccessDb
       MAX_CACHED = 100
 
-      def initialize(name, sort_order)
-        @path = File.expand_path("../db/#{name}", __FILE__)
+      def initialize(path, sort_order)
+        @path = path
         @file = File.open(@path)
 
         @row_length = @file.readline.length
@@ -141,8 +151,8 @@ module MiniMime
     end
 
     def initialize
-      @ext_db = RandomAccessDb.new("ext_mime.db", 0)
-      @content_type_db = RandomAccessDb.new("content_type_mime.db", 1)
+      @ext_db = RandomAccessDb.new(Configuration.ext_db_path, 0)
+      @content_type_db = RandomAccessDb.new(Configuration.content_type_db_path, 1)
     end
 
     def lookup_by_extension(extension)

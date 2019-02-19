@@ -34,6 +34,17 @@ MiniMime.lookup_by_content_type("text/plain").binary?
 
 ```
 
+## Configuration
+
+If you'd like to add your own mime types, try using custom database files:
+
+```
+MiniMime::Configuration.ext_db_path = "path_to_file_extension_db"
+MiniMime::Configuration.content_type_db_path = "path_to_content_type_db"
+```
+
+Check out the [default databases](lib/db) for proper formatting and structure hints.
+
 ## Performance
 
 MiniMime is optimised to minimize memory usage. It keeps a cache of 100 mime type lookups (and 100 misses). There are benchmarks in the [bench directory](https://github.com/discourse/mini_mime/blob/master/bench/bench.rb)
