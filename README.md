@@ -51,32 +51,32 @@ MiniMime is optimised to minimize memory usage. It keeps a cache of 100 mime typ
 
 ```
 Memory stats for requiring mime/types/columnar
-Total allocated: 8686910 bytes (102917 objects)
-Total retained:  3156016 bytes (33593 objects)
+Total allocated: 8712144 bytes (98242 objects)
+Total retained:  3372545 bytes (33599 objects)
 
 Memory stats for requiring mini_mime
-Total allocated: 41064 bytes (362 objects)
-Total retained:  7156 bytes (60 objects)
+Total allocated: 42625 bytes (369 objects)
+Total retained:  8992 bytes (72 objects)
 Warming up --------------------------------------
 cached content_type lookup MiniMime
-                        72.481k i/100ms
+                        85.109k i/100ms
 content_type lookup MIME::Types
-                        13.284k i/100ms
+                        17.879k i/100ms
 Calculating -------------------------------------
 cached content_type lookup MiniMime
-                        914.838k (± 1.3%) i/s -      4.639M in   5.071456s
+                          1.105M (± 4.1%) i/s -      5.532M in   5.014895s
 content_type lookup MIME::Types
-                        140.215k (± 3.4%) i/s -    704.052k in   5.026273s
+                        193.528k (± 7.1%) i/s -    965.466k in   5.013925s
 Warming up --------------------------------------
 uncached content_type lookup MiniMime
-                         1.329k i/100ms
+                         1.410k i/100ms
 content_type lookup MIME::Types
-                        13.225k i/100ms
+                        18.012k i/100ms
 Calculating -------------------------------------
 uncached content_type lookup MiniMime
-                         13.338k (± 1.7%) i/s -     67.779k in   5.083373s
+                         14.689k (± 4.2%) i/s -     73.320k in   5.000779s
 content_type lookup MIME::Types
-                        139.626k (± 4.2%) i/s -    700.925k in   5.027074s
+                        193.459k (± 6.9%) i/s -    972.648k in   5.050731s
 ```
 
 As a general guideline, cached lookups are 6x faster than MIME::Types equivalent. Uncached lookups are 10x slower.
