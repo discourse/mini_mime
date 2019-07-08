@@ -237,6 +237,7 @@ eol         audio/vnd.digital-winds                                             
 eot         application/vnd.ms-fontobject                                             base64          
 eps         application/postscript                                                    8bit            
 epub        application/epub+zip                                                      base64          
+es          application/ecmascript                                                    base64          
 es3         application/vnd.eszigno3+xml                                              base64          
 esa         application/vnd.osgi.subsystem                                            base64          
 esf         application/vnd.epson.esf                                                 base64          
@@ -410,7 +411,7 @@ jpgm        image/jpm                                                           
 jpgv        video/JPEG                                                                base64          
 jpm         image/jpm                                                                 base64          
 jpx         image/jpx                                                                 base64          
-js          application/ecmascript                                                    base64          
+js          application/javascript                                                    8bit            
 json        application/json                                                          8bit            
 jsonml      application/jsonml+json                                                   base64          
 kar         audio/midi                                                                base64          
@@ -507,7 +508,7 @@ mj2         video/MJ2                                                           
 mjp2        video/MJ2                                                                 base64          
 mjpeg       video/x-motion-jpeg                                                       base64          
 mjpg        video/x-motion-jpeg                                                       base64          
-mjs         application/ecmascript                                                    base64          
+mjs         application/javascript                                                    8bit            
 mk3d        video/x-matroska                                                          base64          
 mka         audio/x-matroska                                                          base64          
 mkd         text/markdown                                                             quoted-printable
@@ -1035,6 +1036,7 @@ vtu         model/vnd.vtu                                                       
 vxml        application/voicexml+xml                                                  base64          
 w3d         application/x-director                                                    base64          
 wad         application/x-doom                                                        base64          
+wasm        application/wasm                                                          8bit            
 wav         audio/x-wav                                                               base64          
 wax         audio/x-ms-wax                                                            base64          
 wbmp        image/vnd.wap.wbmp                                                        base64          
