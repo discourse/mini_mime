@@ -487,6 +487,7 @@ cmp         application/vnd.yellowriver-custom-menu                             
 zir         application/vnd.zul                                                       base64          
 zaz         application/vnd.zzazz.deck+xml                                            base64          
 vxml        application/voicexml+xml                                                  base64          
+wasm        application/wasm                                                          8bit            
 wif         application/watcherinfo+xml                                               base64          
 wgt         application/widget                                                        base64          
 wp5         application/wordperfect5.1                                                base64          
