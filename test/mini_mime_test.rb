@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 begin
@@ -49,7 +50,7 @@ class MiniMimeTest < Minitest::Test
     def test_full_parity_with_mime_types
       exts = Set.new
       MIME::Types.each do |type|
-        type.extensions.each{|ext| exts << ext}
+        type.extensions.each { |ext| exts << ext }
       end
 
       exts.each do |ext|
