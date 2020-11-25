@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "mini_mime/version"
 require "thread"
 
@@ -129,7 +130,7 @@ module MiniMime
         result = nil
 
         while from <= to do
-          midpoint = from + (to-from).div(2)
+          midpoint = from + (to - from).div(2)
           current = resolve(midpoint)
           data = current[@sort_order]
           if data > val
@@ -145,7 +146,7 @@ module MiniMime
       end
 
       def resolve(row)
-        @file.seek(row*@row_length)
+        @file.seek(row * @row_length)
         Info.new(@file.readline)
       end
     end
