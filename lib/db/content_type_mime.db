@@ -690,6 +690,7 @@ otf         font/otf                                                            
 ttf         font/ttf                                                                  base64          
 woff        font/woff                                                                 base64          
 woff2       font/woff2                                                                base64          
+avif        image/avif                                                                base64          
 cgm         image/cgm                                                                 base64          
 g3          image/g3fax                                                               base64          
 gif         image/gif                                                                 base64          
