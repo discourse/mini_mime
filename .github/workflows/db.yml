@@ -16,6 +16,8 @@ jobs:
         with:
           ruby-version: "2.7"
           bundler-cache: true
+      - name: Update mime-types-data
+        run: bundle update mime-types-data
       - name: Update DB
         run: bundle exec rake rebuild_db
       - name: Create PR
