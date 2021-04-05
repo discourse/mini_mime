@@ -56,14 +56,14 @@ module MiniMime
       extension = File.extname(filename)
       return if extension.empty?
       extension = extension[1..-1]
-      extension.downcase!
       lookup_by_extension(extension)
     end
 
     def self.lookup_by_extension(extension)
       LOCK.synchronize do
         @db ||= new
-        @db.lookup_by_extension(extension)
+        @db.lookup_by_extension(extension) ||
+          @db.lookup_by_extension(extension.downcase)
       end
     end
 

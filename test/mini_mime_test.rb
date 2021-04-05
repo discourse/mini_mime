@@ -15,8 +15,16 @@ class MiniMimeTest < Minitest::Test
     assert_equal "application/zip", MiniMime.lookup_by_extension("zip").content_type
   end
 
+  def test_mixed_case
+
+    # irb(main):009:0> MIME::Types.type_for("TxT").first.to_s
+    # => "text/plain"
+
+    assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.GTM").content_type
+    assert_equal "application/zip", MiniMime.lookup_by_extension("ZiP").content_type
+  end
+
   def test_content_type
-    # keep lotus alive cause these files are EVERYWHERE
     assert_equal "application/vnd.lotus-1-2-3", MiniMime.lookup_by_filename("a.123").content_type
     assert_equal "application/x-compressed", MiniMime.lookup_by_filename("a.Z").content_type
     assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.gtm").content_type
@@ -30,6 +38,7 @@ class MiniMimeTest < Minitest::Test
   def test_binary
     # note this is not strictly correct but .Z is the only
     # upper case extension, being correct here seems overkill
+    # many already rely on case insensitive lookups (which is implemented by mime types)
     assert MiniMime.lookup_by_filename("a.z").binary?
     assert MiniMime.lookup_by_filename("a.Z").binary?
     refute MiniMime.lookup_by_filename("a.txt").binary?
