@@ -35,6 +35,7 @@ jsonml      application/jsonml+json                                             
 lostxml     application/lost+xml                                                      base64          
 hqx         application/mac-binhex40                                                  8bit            
 mads        application/mads+xml                                                      base64          
+webmanifest application/manifest+json                                                 base64          
 mrc         application/marc                                                          base64          
 mrcx        application/marcxml+xml                                                   base64          
 ma          application/mathematica                                                   base64          

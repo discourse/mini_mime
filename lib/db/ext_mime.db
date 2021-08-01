@@ -1071,6 +1071,7 @@ wdp         image/vnd.ms-photo                                                  
 weba        audio/webm                                                                base64          
 webapp      application/x-web-app-manifest+json                                       base64          
 webm        audio/webm                                                                base64          
+webmanifest application/manifest+json                                                 base64          
 webp        image/webp                                                                base64          
 wg          application/vnd.pmi.widget                                                base64          
 wgt         application/widget                                                        base64          
