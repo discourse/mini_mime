@@ -102,6 +102,16 @@ module MiniMime
         @file_length = File.size(@path)
         @rows = @file_length / @row_length
 
+        # Make sure the DB file is seekable, use a StringIO wrapper if it's not
+        is_seekable = (@file.tell == @row_length)
+        begin
+          @file.seek(0)
+        rescue IOError, SystemCallError
+          is_seekable = false
+        end
+        is_seekable = false unless @file.tell == 0
+        @file = StringIO.new(File.read(@path)) unless is_seekable
+
         @hit_cache = Cache.new(MAX_CACHED)
         @miss_cache = Cache.new(MAX_CACHED)
 
