@@ -12,7 +12,7 @@ class MiniMimeTest < Minitest::Test
   end
 
   def test_extension
-    assert_equal "application/zip", MiniMime.lookup_by_extension("zip").content_type
+    assert_equal "application/zip", MiniMime.lookup_by_extension("zip")&.content_type
   end
 
   def test_mixed_case
@@ -20,17 +20,17 @@ class MiniMimeTest < Minitest::Test
     # irb(main):009:0> MIME::Types.type_for("TxT").first.to_s
     # => "text/plain"
 
-    assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.GTM").content_type
-    assert_equal "application/zip", MiniMime.lookup_by_extension("ZiP").content_type
+    assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.GTM")&.content_type
+    assert_equal "application/zip", MiniMime.lookup_by_extension("ZiP")&.content_type
   end
 
   def test_content_type
-    assert_equal "application/vnd.lotus-1-2-3", MiniMime.lookup_by_filename("a.123").content_type
-    assert_equal "application/x-compressed", MiniMime.lookup_by_filename("a.Z").content_type
-    assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.gtm").content_type
-    assert_equal "application/vnd.HandHeld-Entertainment+xml", MiniMime.lookup_by_filename("a.zmm").content_type
-    assert_equal "text/csv", MiniMime.lookup_by_filename("x.csv").content_type
-    assert_equal "application/x-msaccess", MiniMime.lookup_by_filename("x.mda").content_type
+    assert_equal "application/vnd.lotus-1-2-3", MiniMime.lookup_by_filename("a.123")&.content_type
+    assert_equal "application/x-compressed", MiniMime.lookup_by_filename("a.Z")&.content_type
+    assert_equal "application/vnd.groove-tool-message", MiniMime.lookup_by_filename("a.gtm")&.content_type
+    assert_equal "application/vnd.HandHeld-Entertainment+xml", MiniMime.lookup_by_filename("a.zmm")&.content_type
+    assert_equal "text/csv", MiniMime.lookup_by_filename("x.csv")&.content_type
+    assert_equal "application/x-msaccess", MiniMime.lookup_by_filename("x.mda")&.content_type
 
     assert_nil MiniMime.lookup_by_filename("a.frog")
   end
@@ -69,11 +69,7 @@ class MiniMimeTest < Minitest::Test
         type ||= types.detect(&:registered)
         type ||= types.first
 
-        # if type.content_type != MiniMime.lookup_by_filename("a.#{ext}").content_type
-        #   puts "#{ext} Expected #{type.content_type} Got #{MiniMime.lookup_by_filename("a.#{ext}").content_type}"
-        # end
-
-        assert_equal type.content_type, MiniMime.lookup_by_filename("a.#{ext}").content_type
+        assert_equal type.content_type, MiniMime.lookup_by_filename("a.#{ext}")&.content_type
       end
     end
   end
