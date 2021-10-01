@@ -812,6 +812,7 @@ si          text/vnd.wap.si                                                     
 sl          text/vnd.wap.sl                                                           quoted-printable
 wml         text/vnd.wap.wml                                                          quoted-printable
 wmls        text/vnd.wap.wmlscript                                                    quoted-printable
+vtt         text/vtt                                                                  quoted-printable
 asm         text/x-asm                                                                quoted-printable
 c           text/x-c                                                                  quoted-printable
 coffee      text/x-coffescript                                                        8bit            
