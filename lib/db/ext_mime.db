@@ -1055,6 +1055,7 @@ vsf         application/vnd.vsf                                                 
 vss         application/vnd.visio                                                     base64          
 vst         application/vnd.visio                                                     base64          
 vsw         application/vnd.visio                                                     base64          
+vtt         text/vtt                                                                  quoted-printable
 vtu         model/vnd.vtu                                                             base64          
 vxml        application/voicexml+xml                                                  base64          
 w3d         application/x-director                                                    base64          
