@@ -70,7 +70,7 @@ blb         application/x-blorb                                                 
 bleep       application/x-bleeper                                                     base64          
 blorb       application/x-blorb                                                       base64          
 bmi         application/vnd.bmi                                                       base64          
-bmp         image/x-bmp                                                               base64          
+bmp         image/bmp                                                                 base64          
 book        application/vnd.framemaker                                                base64          
 box         application/vnd.previewsystems.box                                        base64          
 boz         application/x-bzip2                                                       base64          
