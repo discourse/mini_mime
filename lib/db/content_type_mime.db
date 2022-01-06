@@ -692,6 +692,7 @@ ttf         font/ttf                                                            
 woff        font/woff                                                                 base64          
 woff2       font/woff2                                                                base64          
 avif        image/avif                                                                base64          
+bmp         image/bmp                                                                 base64          
 cgm         image/cgm                                                                 base64          
 g3          image/g3fax                                                               base64          
 gif         image/gif                                                                 base64          
@@ -731,7 +732,6 @@ xif         image/vnd.xiff                                                      
 webp        image/webp                                                                base64          
 3ds         image/x-3ds                                                               base64          
 dng         image/x-adobe-dng                                                         base64          
-bmp         image/x-bmp                                                               base64          
 cr2         image/x-canon-cr2                                                         base64          
 crw         image/x-canon-crw                                                         base64          
 ras         image/x-cmu-raster                                                        base64          
