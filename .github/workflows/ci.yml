@@ -4,7 +4,6 @@ on:
   pull_request:
   push:
     branches:
-      - master
       - main
 
 jobs:
@@ -12,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     name: "Ruby ${{ matrix.ruby }} / Failure allowed: ${{ matrix.experimental }}"
     continue-on-error: ${{ matrix.experimental }}
+    timeout-minutes: 5
+
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.4", "2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.5", "2.6", "2.7", "3.0", "3.1"]
         experimental: [false]
         include:
           - ruby: "ruby-head"
@@ -24,9 +25,9 @@ jobs:
             experimental: true
           - ruby: "jruby-head"
             experimental: true
-          - ruby: "jruby-9.1.17.0"
+          - ruby: "jruby-9.2.20.1"
             experimental: true
-          - ruby: "jruby-9.2.13.0"
+          - ruby: "jruby-9.3.2.0"
             experimental: true
     steps:
       - uses: actions/checkout@v2
