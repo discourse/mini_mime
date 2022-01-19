@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Sam Saffron"]
   spec.email         = ["sam.saffron@gmail.com"]
 
-  spec.summary       = %q{A lightweight mime type lookup toy}
-  spec.description   = %q{A lightweight mime type lookup toy}
+  spec.summary       = %q{A minimal mime type library}
+  spec.description   = %q{A minimal mime type library}
   spec.homepage      = "https://github.com/discourse/mini_mime"
   spec.license       = "MIT"
 
