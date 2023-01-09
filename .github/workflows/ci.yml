@@ -25,9 +25,9 @@ jobs:
             experimental: true
           - ruby: "jruby-head"
             experimental: true
-          - ruby: "jruby-9.2.20.1"
+          - ruby: "jruby-9.3.9.0"
             experimental: true
-          - ruby: "jruby-9.3.2.0"
+          - ruby: "jruby-9.4.0.0"
             experimental: true
     steps:
       - uses: actions/checkout@v3
