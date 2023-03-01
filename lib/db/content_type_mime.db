@@ -787,6 +787,7 @@ ics         text/calendar                                                       
 css         text/css                                                                  8bit            
 csv         text/csv                                                                  8bit            
 html        text/html                                                                 8bit            
+js          text/javascript                                                           quoted-printable
 markdown    text/markdown                                                             quoted-printable
 n3          text/n3                                                                   quoted-printable
 txt         text/plain                                                                quoted-printable
