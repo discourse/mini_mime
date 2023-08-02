@@ -50,8 +50,6 @@ module MiniMime
   end
 
   class Db
-    LOCK = Mutex.new
-
     def self.lookup_by_filename(filename)
       extension = File.extname(filename)
       return if extension.empty?
@@ -60,18 +58,14 @@ module MiniMime
     end
 
     def self.lookup_by_extension(extension)
-      LOCK.synchronize do
-        @db ||= new
-        @db.lookup_by_extension(extension) ||
-          @db.lookup_by_extension(extension.downcase)
-      end
+      @db ||= new
+      @db.lookup_by_extension(extension) ||
+        @db.lookup_by_extension(extension.downcase)
     end
 
     def self.lookup_by_content_type(content_type)
-      LOCK.synchronize do
-        @db ||= new
-        @db.lookup_by_content_type(content_type)
-      end
+      @db ||= new
+      @db.lookup_by_content_type(content_type)
     end
 
     class Cache
@@ -146,8 +140,7 @@ module MiniMime
       end
 
       def resolve(row)
-        @file.seek(row * @row_length)
-        Info.new(@file.readline)
+        Info.new(@file.pread(@row_length, row * @row_length).force_encoding(Encoding::UTF_8))
       end
     end
 
