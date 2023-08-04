@@ -85,14 +85,40 @@ module MiniMime
       end
     end
 
+    if ::File.method_defined?(:pread)
+      PReadFile = ::File
+    else
+      # For Windows support
+      class PReadFile
+        def initialize(filename)
+          @mutex = Mutex.new
+          # We must open the file in binary mode
+          # otherwise Ruby's automatic line terminator
+          # translation will skew the row size
+          @file = ::File.open(filename, 'rb')
+        end
+
+        def readline(*args)
+          @file.readline(*args)
+        end
+
+        def pread(size, offset)
+          @mutex.synchronize do
+            @file.seek(offset, IO::SEEK_SET)
+            @file.read(size)
+          end
+        end
+      end
+    end
+
     class RandomAccessDb
       MAX_CACHED = 100
 
       def initialize(path, sort_order)
         @path = path
-        @file = File.open(@path)
+        @file = PReadFile.new(@path)
 
-        @row_length = @file.readline.length
+        @row_length = @file.readline("\n").length
         @file_length = File.size(@path)
         @rows = @file_length / @row_length
 

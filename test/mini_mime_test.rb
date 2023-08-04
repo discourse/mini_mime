@@ -57,6 +57,8 @@ class MiniMimeTest < Minitest::Test
 
   if defined? MIME::Types
     def test_full_parity_with_mime_types
+      skip("Windows MIME::Types isn't reliable") if RUBY_PLATFORM.match?(/windows/i)
+
       exts = Set.new
       MIME::Types.each do |type|
         type.extensions.each { |ext| exts << ext }
