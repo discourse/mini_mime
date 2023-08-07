@@ -56,13 +56,63 @@ class MiniMimeTest < Minitest::Test
   end
 
   if defined? MIME::Types
-    def test_full_parity_with_mime_types
-      skip("Windows MIME::Types isn't reliable") if RUBY_PLATFORM.match?(/windows/i)
+    WINDOWS_TYPES = {
+      "cu" => "application/cu-seeme",
+      "ecma" => "application/ecmascript",
+      "es" => "application/ecmascript",
+      "jar" => "application/java-archive",
+      "ser" => "application/java-serialized-object",
+      "mp4" => "application/mp4",
+      "mpg4" => "application/mp4",
+      "doc" => "application/msword",
+      "pgp" => "application/octet-stream",
+      "gpg" => "application/octet-stream",
+      "ai" => "application/pdf",
+      "asc" => "application/pgp-signature",
+      "rtf" => "application/rtf",
+      "spp" => "application/scvp-vp-response",
+      "sgml" => "application/sgml",
+      "curl" => "application/vnd.curl",
+      "odc" => "application/vnd.oasis.opendocument.chart",
+      "odf" => "application/vnd.oasis.opendocument.formula",
+      "odi" => "application/vnd.oasis.opendocument.image",
+      "bdm" => "application/vnd.syncml.dm+wbxml",
+      "dcr" => "application/x-director",
+      "exe" => "application/x-ms-dos-executable",
+      "wmz" => "application/x-ms-wmz",
+      "cmd" => "application/x-msdos-program",
+      "bat" => "application/x-msdos-program",
+      "com" => "application/x-msdos-program",
+      "reg" => "application/x-msdos-program",
+      "ps1" => "application/x-msdos-program",
+      "vbs" => "application/x-msdos-program",
+      "pm" => "application/x-pagemaker",
+      "xml" => "application/xml",
+      "dtd" => "application/xml-dtd",
+      "kar" => "audio/midi",
+      "mid" => "audio/midi",
+      "midi" => "audio/midi",
+      "m4a" => "audio/mp4",
+      "mp2" => "audio/mpeg",
+      "ogg" => "audio/ogg",
+      "wav" => "audio/wav",
+      "webm" => "audio/webm",
+      "wmv" => "audio/x-ms-wmv",
+      "ra" => "audio/x-pn-realaudio",
+      "hif" => "image/heic",
+      "sub" => "image/vnd.dvb.subtitle",
+      "xbm" => "image/x-xbitmap",
+      "mts" => "model/vnd.mts",
+      "rst" => "text/plain",
+    }
 
+    def test_full_parity_with_mime_types
       exts = Set.new
       MIME::Types.each do |type|
         type.extensions.each { |ext| exts << ext }
       end
+
+      differences = []
 
       exts.each do |ext|
         types = MIME::Types.type_for("a.#{ext}")
@@ -75,8 +125,18 @@ class MiniMimeTest < Minitest::Test
         #   puts "#{ext} Expected #{type.content_type} Got #{MiniMime.lookup_by_filename("a.#{ext}").content_type}"
         # end
 
-        assert_equal type.content_type, MiniMime.lookup_by_filename("a.#{ext}").content_type
+        expected = type.content_type
+        if WINDOWS_TYPES.key?(ext) && RUBY_PLATFORM.match?(/mingw|windows/i)
+          expected = WINDOWS_TYPES[ext]
+        end
+        actual = MiniMime.lookup_by_filename("a.#{ext}").content_type
+
+        if expected != actual
+          differences << %{Expected ".#{ext}" to return #{expected.inspect}, got: #{actual.inspect}}
+        end
       end
+
+      assert differences.empty?, differences.join("\n")
     end
   end
 end
