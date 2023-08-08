@@ -1,3 +1,7 @@
+08-08-2023
+  - Version 1.1.4
+  - Version 1.1.3 had issues on Windows which does not support pread, added a polyfill
+
 04-08-2023
   - Version 1.1.3
   - Added fork safety by migrating from seek+read to pread
