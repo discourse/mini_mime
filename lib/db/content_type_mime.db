@@ -224,6 +224,7 @@ xbd         application/vnd.fujixerox.docuworks.binder                          
 fzs         application/vnd.fuzzysheet                                                base64          
 txd         application/vnd.genomatix.tuxedo                                          base64          
 ggb         application/vnd.geogebra.file                                             base64          
+ggs         application/vnd.geogebra.slides                                           base64          
 ggt         application/vnd.geogebra.tool                                             base64          
 gex         application/vnd.geometry-explorer                                         base64          
 gxt         application/vnd.geonext                                                   base64          

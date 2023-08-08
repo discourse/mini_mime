@@ -121,6 +121,7 @@ chrt        application/vnd.kde.kchart                                          
 cif         chemical/x-cif                                                            base64          
 cii         application/vnd.anser-web-certificate-issue-initiation                    base64          
 cil         application/vnd.ms-artgalry                                               base64          
+cjs         text/javascript                                                           quoted-printable
 cla         application/vnd.claymore                                                  base64          
 class       application/octet-stream                                                  base64          
 clkk        application/vnd.crick.clicker.keyboard                                    base64          
@@ -312,6 +313,7 @@ gdl         model/vnd.gdl                                                       
 geo         application/vnd.dynageo                                                   base64          
 gex         application/vnd.geometry-explorer                                         base64          
 ggb         application/vnd.geogebra.file                                             base64          
+ggs         application/vnd.geogebra.slides                                           base64          
 ggt         application/vnd.geogebra.tool                                             base64          
 ghf         application/vnd.groove-help                                               base64          
 gif         image/gif                                                                 base64          
