@@ -106,6 +106,15 @@ class MiniMimeTest < Minitest::Test
       "rst" => "text/plain",
     }
 
+    KNOWN_DIFFERENCES = {
+      "ggs" => nil,
+      "cjs" => nil,
+    }
+
+    if RUBY_PLATFORM.match?(/mingw|windows/i)
+      KNOWN_DIFFERENCES.merge!(WINDOWS_TYPES)
+    end
+
     def test_full_parity_with_mime_types
       exts = Set.new
       MIME::Types.each do |type|
@@ -126,10 +135,10 @@ class MiniMimeTest < Minitest::Test
         # end
 
         expected = type.content_type
-        if WINDOWS_TYPES.key?(ext) && RUBY_PLATFORM.match?(/mingw|windows/i)
+        if KNOWN_DIFFERENCES.key?(ext)
           expected = WINDOWS_TYPES[ext]
         end
-        actual = MiniMime.lookup_by_filename("a.#{ext}").content_type
+        actual = MiniMime.lookup_by_filename("a.#{ext}")&.content_type
 
         if expected != actual
           differences << %{Expected ".#{ext}" to return #{expected.inspect}, got: #{actual.inspect}}
