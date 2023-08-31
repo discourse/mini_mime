@@ -51,6 +51,7 @@ module MiniMime
 
   class Db
     LOCK = Mutex.new
+    @db = nil
 
     def self.db
       @db || LOCK.synchronize { @db ||= new }
