@@ -47,7 +47,7 @@ meta4       application/metalink4+xml                                           
 mets        application/mets+xml                                                      base64          
 mods        application/mods+xml                                                      base64          
 m21         application/mp21                                                          base64          
-mp4         application/mp4                                                           base64          
+mp4         video/mp4                                                                 base64          
 doc         application/msword                                                        base64          
 mxf         application/mxf                                                           base64          
 nc          application/netcdf                                                        base64          
