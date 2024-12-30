@@ -32,9 +32,6 @@ jobs:
           - ruby: "jruby-head"
             os: "ubuntu"
             experimental: true
-          - ruby: "jruby-9.3.9.0"
-            os: "ubuntu"
-            experimental: true
           - ruby: "jruby-9.4.0.0"
             os: "ubuntu"
             experimental: true
