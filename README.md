@@ -86,7 +86,7 @@ As a general guideline, cached lookups are 6x faster than MIME::Types equivalent
 
 Note: It was run on macOS 10.14.2, and versions of Ruby and gems are below.
 
-- Ruby 2.6.0
+- Ruby 3.1.0
 - mini_mime (1.0.1)
 - mime-types (3.2.2)
 - mime-types-data (3.2018.0812)
