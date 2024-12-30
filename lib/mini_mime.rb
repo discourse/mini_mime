@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "mini_mime/version"
-require "thread"
 
 module MiniMime
   def self.lookup_by_filename(filename)
@@ -81,6 +80,9 @@ module MiniMime
       def []=(key, val)
         rval = @hash[key] = val
         @hash.shift if @hash.length > @size
+        # In Ruby, we need to return the []= setter value, so
+        # we have to suppress this warning
+        # rubocop:disable Lint/Void
         rval
       end
 

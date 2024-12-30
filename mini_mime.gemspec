@@ -1,6 +1,8 @@
 # coding: utf-8
 # frozen_string_literal: true
 lib = File.expand_path('../lib', __FILE__)
+# exclude? is not a standard Ruby Array method and part of ActiveSupport instead
+# rubocop:disable Style/InvertibleUnlessCondition
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mini_mime/version'
 

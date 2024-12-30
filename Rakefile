@@ -10,6 +10,7 @@ end
 
 task default: :test
 
+# rubocop:disable Discourse/Plugins/NamespaceMethods
 def pad(array)
   max = []
   array.each do |row|
