@@ -73,6 +73,7 @@ pkipath     application/pkix-pkipath                                            
 pki         application/pkixcmp                                                       base64          
 pls         application/pls+xml                                                       base64          
 eps         application/postscript                                                    8bit            
+prql        application/prql                                                          base64          
 cw          application/prs.cww                                                       base64          
 rnd         application/prs.nprend                                                    base64          
 pskcxml     application/pskc+xml                                                      base64          
@@ -644,8 +645,11 @@ awb         audio/AMR-WB                                                        
 evc         audio/EVRC                                                                base64          
 l16         audio/L16                                                                 base64          
 smv         audio/SMV                                                                 base64          
+aac         audio/aac                                                                 base64          
 adp         audio/adpcm                                                               base64          
 au          audio/basic                                                               base64          
+flac        audio/flac                                                                base64          
+mka         audio/matroska                                                            base64          
 kar         audio/midi                                                                base64          
 mp4         audio/mp4                                                                 base64          
 mpga        audio/mpeg                                                                base64          
@@ -670,11 +674,8 @@ rip         audio/vnd.rip                                                       
 smp3        audio/vnd.sealedmedia.softseal.mpeg                                       base64          
 wav         audio/wav                                                                 base64          
 weba        audio/webm                                                                base64          
-aac         audio/x-aac                                                               base64          
 aif         audio/x-aiff                                                              base64          
 caf         audio/x-caf                                                               base64          
-flac        audio/x-flac                                                              base64          
-mka         audio/x-matroska                                                          base64          
 m3u         audio/x-mpegurl                                                           base64          
 wax         audio/x-ms-wax                                                            base64          
 wma         audio/x-ms-wma                                                            base64          
@@ -706,6 +707,7 @@ jp2         image/jp2                                                           
 jpeg        image/jpeg                                                                base64          
 jpm         image/jpm                                                                 base64          
 jpx         image/jpx                                                                 base64          
+jxl         image/jxl                                                                 base64          
 ktx         image/ktx                                                                 base64          
 png         image/png                                                                 base64          
 btif        image/prs.btif                                                            base64          

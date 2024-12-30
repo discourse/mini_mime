@@ -10,7 +10,7 @@
 @dir        application/x-director                                                    base64          
 @dxr        application/x-director                                                    base64          
 aab         application/x-authorware-bin                                              base64          
-aac         audio/x-aac                                                               base64          
+aac         audio/aac                                                                 base64          
 aam         application/x-authorware-map                                              base64          
 aas         application/x-authorware-seg                                              base64          
 abw         application/x-abiword                                                     base64          
@@ -281,7 +281,7 @@ fh5         image/x-freehand                                                    
 fh7         image/x-freehand                                                          base64          
 fhc         image/x-freehand                                                          base64          
 fig         application/x-xfig                                                        base64          
-flac        audio/x-flac                                                              base64          
+flac        audio/flac                                                                base64          
 fli         video/x-fli                                                               base64          
 flo         application/vnd.micrografx.flo                                            base64          
 flv         video/x-flv                                                               base64          
@@ -428,6 +428,7 @@ jpx         image/jpx                                                           
 js          text/javascript                                                           quoted-printable
 json        application/json                                                          8bit            
 jsonml      application/jsonml+json                                                   base64          
+jxl         image/jxl                                                                 base64          
 k25         image/x-kodak-k25                                                         base64          
 kar         audio/midi                                                                base64          
 karbon      application/vnd.kde.karbon                                                base64          
@@ -477,6 +478,7 @@ m14         application/x-msmediaview                                           
 m1v         video/mpeg                                                                base64          
 m21         application/mp21                                                          base64          
 m2a         audio/mpeg                                                                base64          
+m2t         video/MP2T                                                                base64          
 m2ts        video/MP2T                                                                base64          
 m2v         video/mpeg                                                                base64          
 m3a         audio/mpeg                                                                base64          
@@ -526,7 +528,7 @@ mjpeg       video/x-motion-jpeg                                                 
 mjpg        video/x-motion-jpeg                                                       base64          
 mjs         text/javascript                                                           quoted-printable
 mk3d        video/x-matroska                                                          base64          
-mka         audio/x-matroska                                                          base64          
+mka         audio/matroska                                                            base64          
 mkd         text/markdown                                                             quoted-printable
 mks         video/x-matroska                                                          base64          
 mkv         video/x-matroska                                                          base64          
@@ -727,6 +729,7 @@ pqa         application/vnd.palm                                                
 prc         application/vnd.palm                                                      base64          
 pre         application/vnd.lotus-freelance                                           base64          
 prf         application/pics-rules                                                    base64          
+prql        application/prql                                                          base64          
 ps          application/postscript                                                    8bit            
 ps1         application/x-msdos-program                                               base64          
 psb         application/vnd.3gpp.pic-bw-small                                         base64          
