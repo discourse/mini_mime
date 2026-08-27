@@ -64,7 +64,11 @@ module MiniMime
     end
 
     def self.lookup_by_extension(extension)
-      db.lookup_by_extension(extension) || db.lookup_by_extension(extension.downcase)
+      result = db.lookup_by_extension(extension)
+      return result if result
+
+      downcased = extension.downcase
+      db.lookup_by_extension(downcased) unless extension == downcased
     end
 
     def self.lookup_by_content_type(content_type)
