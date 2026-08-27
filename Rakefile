@@ -16,7 +16,7 @@ def pad(array)
   array.each do |row|
     i = 0
     row.each do |col|
-      max[i] = [max[i] || 0, col.length].max
+      max[i] = [max[i] || 0, col.bytesize].max
       i += 1
     end
   end
@@ -24,7 +24,7 @@ def pad(array)
   array.each do |row|
     i = 0
     row.each do |col|
-      col << " " * (max[i] - col.length)
+      col << " " * (max[i] - col.bytesize)
       i += 1
     end
   end

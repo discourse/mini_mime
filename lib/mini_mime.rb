@@ -124,7 +124,7 @@ module MiniMime
         @path = path
         @file = PReadFile.new(@path)
 
-        @row_length = @file.readline("\n").length
+        @row_length = @file.readline("\n").bytesize
         @file_length = File.size(@path)
         @rows = @file_length / @row_length
 
