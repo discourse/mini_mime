@@ -36,6 +36,7 @@ task :rebuild_db do
   puts "Generating mime type DB"
   require 'mime/types'
   index = {}
+  preferred_extensions = {}
 
   MIME::Types.each do |type|
     type.extensions.each { |ext| (index[ext.downcase] ||= []) << type }
@@ -51,6 +52,7 @@ task :rebuild_db do
     mime_type = list.detect { |t| !t.obsolete? }
     mime_type ||= list.detect(&:registered)
     mime_type ||= list.first
+    preferred_extensions[mime_type.content_type] ||= mime_type.extensions.first
     buffer << [ext.dup, mime_type.content_type.dup, mime_type.encoding.dup]
   end
 
@@ -77,7 +79,7 @@ task :rebuild_db do
 
   # we got to confirm we pick the right extension for each type
   buffer.each do |row|
-    row[0] = MIME::Types.type_for("xyz.#{row[0].strip}")[0].extensions[0].dup
+    row[0] = preferred_extensions.fetch(row[1]).dup
   end
 
   pad(buffer)
