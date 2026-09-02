@@ -16,8 +16,18 @@ module MiniMime
 
   module Configuration
     class << self
-      attr_accessor :ext_db_path
-      attr_accessor :content_type_db_path
+      attr_reader :ext_db_path
+      attr_reader :content_type_db_path
+
+      def ext_db_path=(path)
+        @ext_db_path = path
+        Db.reset! if MiniMime.const_defined?(:Db, false)
+      end
+
+      def content_type_db_path=(path)
+        @content_type_db_path = path
+        Db.reset! if MiniMime.const_defined?(:Db, false)
+      end
     end
 
     self.ext_db_path = File.expand_path("../db/ext_mime.db", __FILE__)
@@ -30,7 +40,10 @@ module MiniMime
     attr_accessor :extension, :content_type, :encoding
 
     def initialize(buffer)
-      @extension, @content_type, @encoding = buffer.split(/\s+/).map!(&:freeze)
+      fields = buffer.split(/\s+/)
+      raise ArgumentError, "invalid MIME database row" unless fields.length == 3
+
+      @extension, @content_type, @encoding = fields.map!(&:freeze)
     end
 
     def [](idx)
@@ -56,6 +69,10 @@ module MiniMime
       @db || LOCK.synchronize { @db ||= new }
     end
 
+    def self.reset!
+      LOCK.synchronize { @db = nil }
+    end
+
     def self.lookup_by_filename(filename)
       extension = File.extname(filename)
       return if extension.empty?
@@ -64,7 +81,11 @@ module MiniMime
     end
 
     def self.lookup_by_extension(extension)
-      db.lookup_by_extension(extension) || db.lookup_by_extension(extension.downcase)
+      result = db.lookup_by_extension(extension)
+      return result if result
+
+      downcased = extension.downcase
+      db.lookup_by_extension(downcased) unless extension == downcased
     end
 
     def self.lookup_by_content_type(content_type)
@@ -80,9 +101,6 @@ module MiniMime
       def []=(key, val)
         rval = @hash[key] = val
         @hash.shift if @hash.length > @size
-        # In Ruby, we need to return the []= setter value, so
-        # we have to suppress this warning
-        # rubocop:disable Lint/Void
         rval
       end
 
@@ -92,7 +110,11 @@ module MiniMime
     end
 
     if ::File.method_defined?(:pread)
-      PReadFile = ::File
+      class PReadFile < ::File
+        def initialize(filename)
+          super(filename, "rb")
+        end
+      end
     else
       # For Windows support
       class PReadFile
@@ -114,6 +136,10 @@ module MiniMime
             @file.read(size)
           end
         end
+
+        def close
+          @file.close
+        end
       end
     end
 
@@ -123,9 +149,18 @@ module MiniMime
       def initialize(path, sort_order)
         @path = path
         @file = PReadFile.new(@path)
-
-        @row_length = @file.readline("\n").length
         @file_length = File.size(@path)
+        if @file_length.zero?
+          @file.close
+          raise ArgumentError, "MIME database is empty: #{@path}"
+        end
+
+        @row_length = @file.readline("\n").bytesize
+        unless (@file_length % @row_length).zero? && @file.pread(1, @file_length - 1) == "\n"
+          @file.close
+          raise ArgumentError, "MIME database rows must have a fixed byte width: #{@path}"
+        end
+
         @rows = @file_length / @row_length
 
         @hit_cache = Cache.new(MAX_CACHED)
@@ -171,8 +206,15 @@ module MiniMime
         result
       end
 
+      def close
+        @file.close
+      end
+
       def resolve(row)
-        Info.new(@file.pread(@row_length, row * @row_length).force_encoding(Encoding::UTF_8))
+        buffer = @file.pread(@row_length, row * @row_length).force_encoding(Encoding::UTF_8)
+        raise ArgumentError, "invalid UTF-8 in MIME database: #{@path}" unless buffer.valid_encoding?
+
+        Info.new(buffer)
       end
     end
 

@@ -4,6 +4,8 @@ Minimal mime type implementation for use with the mail and rest-client gem.
 
 ## Installation
 
+MiniMime 2.0 requires Ruby 3.3 or newer. Supported JRuby and TruffleRuby releases must implement a maintained Ruby language version.
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -45,6 +47,8 @@ If you'd like to add your own mime types, try using custom database files:
 MiniMime::Configuration.ext_db_path = "path_to_file_extension_db"
 MiniMime::Configuration.content_type_db_path = "path_to_content_type_db"
 ```
+
+Configuration is process-global and should normally be set during application startup. Changing either path resets the lookup database so subsequent lookups use the new files. Custom databases must contain UTF-8 rows with three whitespace-separated columns, a final newline, and a consistent byte width.
 
 Check out the [default databases](lib/db) for proper formatting and structure hints.
 

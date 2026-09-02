@@ -6,21 +6,27 @@ on:
     - cron: "0 10 1 * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update_db:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: "Update MIME type DB"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7"
+          ruby-version: "4.0"
           bundler-cache: true
       - name: Update mime-types-data
         run: bundle update mime-types-data
       - name: Update DB
         run: bundle exec rake rebuild_db
+      - name: Test updated DB
+        run: bundle exec rake test
       - name: Create PR
         run: bin/db_pull_request
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

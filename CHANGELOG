@@ -1,3 +1,13 @@
+02-09-2026
+  - Version 2.0.0
+  - Require Ruby 3.3 or newer
+  - Update the bundled MIME database from mime-types-data 3.2026.0701; some extension and content-type mappings changed to match current upstream priorities
+  - Use byte offsets for reliable lookups in Unicode custom databases (#65, thanks @OskarEichler)
+  - Avoid duplicate database reads for lowercase extension misses (#64, thanks @OskarEichler)
+  - Preserve preferred extensions and extension-specific priorities when rebuilding the database (#66, thanks @OskarEichler)
+  - Reload custom MIME databases when their configured paths change
+  - Validate custom database row widths, row structure, and UTF-8 encoding
+
 08-08-2023
   - Version 1.1.5
   - Update mime types from upstream
