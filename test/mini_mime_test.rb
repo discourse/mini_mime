@@ -51,24 +51,24 @@ class MiniMimeTest < Minitest::Test
     refute MiniMime.lookup_by_content_type("text/plain").binary?
   end
 
-  def should_prioritize_extensions_correctly
-    assert_equal MiniMime.lookup_by_content_type("text/plain").extension, "txt"
+  def test_prioritizes_extensions_correctly
+    assert_equal "txt", MiniMime.lookup_by_content_type("text/plain").extension
   end
 
   if defined? MIME::Types
     WINDOWS_TYPES = {
       "cu" => "application/cu-seeme",
       "ecma" => "application/ecmascript",
-      "es" => "application/ecmascript",
+      "es" => "text/ecmascript",
       "jar" => "application/java-archive",
       "ser" => "application/java-serialized-object",
       "mp4" => "application/mp4",
-      "mpg4" => "application/mp4",
+      "mpg4" => "audio/mp4",
       "doc" => "application/msword",
       "pgp" => "application/octet-stream",
       "gpg" => "application/octet-stream",
-      "ai" => "application/pdf",
-      "asc" => "application/pgp-signature",
+      "ai" => "application/postscript",
+      "asc" => "text/plain",
       "rtf" => "application/rtf",
       "spp" => "application/scvp-vp-response",
       "sgml" => "application/sgml",
@@ -78,25 +78,25 @@ class MiniMimeTest < Minitest::Test
       "odi" => "application/vnd.oasis.opendocument.image",
       "bdm" => "application/vnd.syncml.dm+wbxml",
       "dcr" => "application/x-director",
-      "exe" => "application/x-ms-dos-executable",
+      "exe" => "application/x-dosexec",
       "wmz" => "application/x-ms-wmz",
       "cmd" => "application/x-msdos-program",
-      "bat" => "application/x-msdos-program",
-      "com" => "application/x-msdos-program",
-      "reg" => "application/x-msdos-program",
-      "ps1" => "application/x-msdos-program",
-      "vbs" => "application/x-msdos-program",
+      "bat" => "application/x-bat",
+      "com" => "application/x-msdownload",
+      "reg" => "application/x-msdownload",
+      "ps1" => "application/x-msdownload",
+      "vbs" => "application/x-msdownload",
       "pm" => "application/x-pagemaker",
       "xml" => "application/xml",
       "dtd" => "application/xml-dtd",
       "kar" => "audio/midi",
-      "mid" => "audio/midi",
+      "mid" => "audio/x-midi",
       "midi" => "audio/midi",
-      "m4a" => "audio/mp4",
-      "mp2" => "audio/mpeg",
-      "ogg" => "audio/ogg",
-      "wav" => "audio/wav",
-      "webm" => "audio/webm",
+      "m4a" => "audio/MP4A-LATM",
+      "mp2" => "video/mpeg",
+      "ogg" => "audio/vorbis",
+      "wav" => "audio/vnd.wave",
+      "webm" => "video/webm",
       "wmv" => "audio/x-ms-wmv",
       "ra" => "audio/x-pn-realaudio",
       "hif" => "image/heic",
@@ -115,6 +115,10 @@ class MiniMimeTest < Minitest::Test
       differences = []
 
       exts.each do |ext|
+        # mime-types treats .htaccess as a full basename rather than an
+        # extension, so it cannot resolve that entry through type_for.
+        next if ext == ".htaccess"
+
         types = MIME::Types.type_for("a.#{ext}")
 
         type = types.detect { |t| !t.obsolete? }

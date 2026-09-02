@@ -1,0 +1,2 @@
+/lib/db/*.db text eol=lf
+/test/fixtures/*.db text eol=lf

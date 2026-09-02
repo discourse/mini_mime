@@ -30,4 +30,30 @@ class MiniMime::ConfigurationTest < Minitest::Test
     assert_equal "liquid", MiniMime.lookup_by_content_type("application/x-liquid").extension
     assert_equal "quoted-printable", MiniMime.lookup_by_content_type("video/vnd.objectvideo").encoding
   end
+
+  def test_changing_configuration_reloads_the_database
+    assert_equal "text/x-lua", MiniMime.lookup_by_extension("lua").content_type
+
+    MiniMime::Configuration.ext_db_path = CUSTOM_EXT_MIME_DB_PATH
+
+    assert_equal "application/x-lua", MiniMime.lookup_by_extension("lua").content_type
+  end
+
+  def test_changing_content_type_configuration_reloads_the_database
+    assert_nil MiniMime.lookup_by_content_type("application/x-liquid")
+
+    MiniMime::Configuration.content_type_db_path = CUSTOM_CONTENT_TYPE_MIME_DB_PATH
+
+    assert_equal "liquid", MiniMime.lookup_by_content_type("application/x-liquid").extension
+  end
+
+  def test_changing_both_paths_uses_both_custom_databases
+    MiniMime.lookup_by_extension("zip")
+
+    MiniMime::Configuration.ext_db_path = CUSTOM_EXT_MIME_DB_PATH
+    MiniMime::Configuration.content_type_db_path = CUSTOM_CONTENT_TYPE_MIME_DB_PATH
+
+    assert_equal "application/x-lua", MiniMime.lookup_by_extension("lua").content_type
+    assert_equal "liquid", MiniMime.lookup_by_content_type("application/x-liquid").extension
+  end
 end

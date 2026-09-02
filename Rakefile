@@ -16,7 +16,7 @@ def pad(array)
   array.each do |row|
     i = 0
     row.each do |col|
-      max[i] = [max[i] || 0, col.length].max
+      max[i] = [max[i] || 0, col.bytesize].max
       i += 1
     end
   end
@@ -24,7 +24,7 @@ def pad(array)
   array.each do |row|
     i = 0
     row.each do |col|
-      col << " " * (max[i] - col.length)
+      col << " " * (max[i] - col.bytesize)
       i += 1
     end
   end
@@ -36,13 +36,14 @@ task :rebuild_db do
   puts "Generating mime type DB"
   require 'mime/types'
   index = {}
+  preferred_extensions = {}
 
   MIME::Types.each do |type|
     type.extensions.each { |ext| (index[ext.downcase] ||= []) << type }
   end
 
-  index.each do |k, list|
-    list.sort! { |a, b| a.priority_compare(b) }
+  index.each do |extension, list|
+    list.sort! { |a, b| a.__extension_priority_compare(b, [extension]) }
   end
 
   buffer = []
@@ -51,6 +52,7 @@ task :rebuild_db do
     mime_type = list.detect { |t| !t.obsolete? }
     mime_type ||= list.detect(&:registered)
     mime_type ||= list.first
+    preferred_extensions[mime_type.content_type] ||= mime_type.preferred_extension
     buffer << [ext.dup, mime_type.content_type.dup, mime_type.encoding.dup]
   end
 
@@ -58,7 +60,7 @@ task :rebuild_db do
 
   buffer.sort! { |a, b| a[0] <=> b[0] }
 
-  File.open("lib/db/ext_mime.db", File::CREAT | File::TRUNC | File::RDWR) do |f|
+  File.open("lib/db/ext_mime.db", File::BINARY | File::CREAT | File::TRUNC | File::RDWR) do |f|
     buffer.each do |row|
       f.write "#{row[0]} #{row[1]} #{row[2]}\n"
     end
@@ -77,12 +79,12 @@ task :rebuild_db do
 
   # we got to confirm we pick the right extension for each type
   buffer.each do |row|
-    row[0] = MIME::Types.type_for("xyz.#{row[0].strip}")[0].extensions[0].dup
+    row[0] = preferred_extensions.fetch(row[1]).dup
   end
 
   pad(buffer)
 
-  File.open("lib/db/content_type_mime.db", File::CREAT | File::TRUNC | File::RDWR) do |f|
+  File.open("lib/db/content_type_mime.db", File::BINARY | File::CREAT | File::TRUNC | File::RDWR) do |f|
     last = nil
     count = 0
     buffer.each do |row|
