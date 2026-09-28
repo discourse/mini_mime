@@ -1,3 +1,6 @@
+unreleased
+  - Fall back to an in-memory database when a path can not be pread (such as a path inside a JAR on JRuby)
+
 02-09-2026
   - Version 2.0.0
   - Require Ruby 3.3 or newer
