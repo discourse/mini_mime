@@ -131,10 +131,6 @@ module MiniMime
           @file.size
         end
 
-        def rewind
-          @file.rewind
-        end
-
         def readline(*args)
           @file.readline(*args)
         end
@@ -256,29 +252,16 @@ module MiniMime
       private
 
       def open_file_path(source)
-        if source.respond_to?(:read) # an IO like source, e.g. StringIO
+        if source.respond_to?(:read) # an IO like source (e.g. StringIO)
           source.rewind if source.respond_to?(:rewind)
           return MemoryFile.new(source.read)
         end
 
-        file = PReadFile.new(source)
-        if preads?(file)
-          file.rewind
-          return file
-        end
+        return PReadFile.new(source) if File.ftype(source) == "file"
 
-        # NOTE: a path can look like a plain file and still not pread, on JRuby a
-        # "uri:classloader:" resource packaged inside a JAR reads from the wrong offset
-        file.close
+        # NOTE: only a real file has a descriptor to pread, JRuby hands out a File for a path
+        # inside a JAR ("uri:classloader:/...") but then reads it from the stream position
         MemoryFile.new(File.binread(source))
-      end
-
-      # probes after a readline, a broken pread still looks correct while the stream is at 0
-      def preads?(file)
-        row = file.readline("\n")
-        file.pread(row.bytesize, 0) == row
-      rescue StandardError
-        false
       end
     end
 
