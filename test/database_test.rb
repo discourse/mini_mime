@@ -44,6 +44,22 @@ class DatabaseTest < Minitest::Test
     end
   end
 
+  def test_falls_back_to_memory_for_a_path_that_is_not_a_file
+    with_ftype("unknown") do
+      with_database("a text/a 7bit\nz text/z 7bit\n") do |database|
+        assert_instance_of MiniMime::Db::MemoryFile, database_file(database)
+        assert_equal "text/a", database.lookup("a").content_type
+        assert_equal "text/z", database.lookup("z").content_type
+      end
+    end
+  end
+
+  def test_uses_the_file_backend_for_a_plain_path
+    with_database("a text/a 7bit\n") do |database|
+      assert_instance_of MiniMime::Db::PReadFile, database_file(database)
+    end
+  end
+
   def test_rejects_an_empty_database
     assert_invalid_database("")
   end
@@ -107,6 +123,19 @@ class DatabaseTest < Minitest::Test
   end
 
   private
+
+  # JRuby reports "unknown" for a path inside an archive, a real file is always "file"
+  def with_ftype(ftype)
+    original = File.singleton_class.instance_method(:ftype)
+    File.singleton_class.define_method(:ftype) { |*| ftype }
+    yield
+  ensure
+    File.singleton_class.define_method(:ftype, original)
+  end
+
+  def database_file(database)
+    database.instance_variable_get(:@file)
+  end
 
   def assert_invalid_database(contents)
     Tempfile.create do |file|

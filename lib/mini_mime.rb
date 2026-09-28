@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "mini_mime/version"
+require "stringio"
 
 module MiniMime
   def self.lookup_by_filename(filename)
@@ -126,6 +127,10 @@ module MiniMime
           @file = ::File.open(filename, 'rb')
         end
 
+        def size
+          @file.size
+        end
+
         def readline(*args)
           @file.readline(*args)
         end
@@ -143,13 +148,36 @@ module MiniMime
       end
     end
 
+    # Holds the whole database in memory
+    class MemoryFile
+      def initialize(content)
+        @io = StringIO.new(content.b.freeze)
+      end
+
+      def size
+        @io.size
+      end
+
+      def readline(*args)
+        @io.readline(*args)
+      end
+
+      def pread(size, offset)
+        @io.pread(size, offset)
+      end
+
+      def close
+        @io.close
+      end
+    end
+
     class RandomAccessDb
       MAX_CACHED = 100
 
       def initialize(path, sort_order)
         @path = path
-        @file = PReadFile.new(@path)
-        @file_length = File.size(@path)
+        @file = open_file_path(path)
+        @file_length = @file.size
         if @file_length.zero?
           @file.close
           raise ArgumentError, "MIME database is empty: #{@path}"
@@ -215,6 +243,16 @@ module MiniMime
         raise ArgumentError, "invalid UTF-8 in MIME database: #{@path}" unless buffer.valid_encoding?
 
         Info.new(buffer)
+      end
+
+      private
+
+      def open_file_path(source)
+        return PReadFile.new(source) if File.ftype(source) == "file"
+
+        # NOTE: only a real file has a descriptor to pread, JRuby hands out a File for a path
+        # inside a JAR archive ("uri:classloader:/...") but then reads from the stream position
+        MemoryFile.new(File.binread(source))
       end
     end
 
