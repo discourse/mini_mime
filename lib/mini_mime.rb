@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "mini_mime/version"
+require "stringio"
 
 module MiniMime
   def self.lookup_by_filename(filename)
@@ -126,6 +127,14 @@ module MiniMime
           @file = ::File.open(filename, 'rb')
         end
 
+        def size
+          @file.size
+        end
+
+        def rewind
+          @file.rewind
+        end
+
         def readline(*args)
           @file.readline(*args)
         end
@@ -143,13 +152,40 @@ module MiniMime
       end
     end
 
+    # Holds the whole database in memory
+    class MemoryFile
+      def initialize(content)
+        @io = StringIO.new(content.b.freeze)
+      end
+
+      def size
+        @io.size
+      end
+
+      def rewind
+        @io.rewind
+      end
+
+      def readline(*args)
+        @io.readline(*args)
+      end
+
+      def pread(size, offset)
+        @io.pread(size, offset)
+      end
+
+      def close
+        @io.close
+      end
+    end
+
     class RandomAccessDb
       MAX_CACHED = 100
 
       def initialize(path, sort_order)
         @path = path
-        @file = PReadFile.new(@path)
-        @file_length = File.size(@path)
+        @file = open_file_path(path)
+        @file_length = @file.size
         if @file_length.zero?
           @file.close
           raise ArgumentError, "MIME database is empty: #{@path}"
@@ -215,6 +251,34 @@ module MiniMime
         raise ArgumentError, "invalid UTF-8 in MIME database: #{@path}" unless buffer.valid_encoding?
 
         Info.new(buffer)
+      end
+
+      private
+
+      def open_file_path(source)
+        if source.respond_to?(:read) # an IO like source, e.g. StringIO
+          source.rewind if source.respond_to?(:rewind)
+          return MemoryFile.new(source.read)
+        end
+
+        file = PReadFile.new(source)
+        if preads?(file)
+          file.rewind
+          return file
+        end
+
+        # NOTE: a path can look like a plain file and still not pread, on JRuby a
+        # "uri:classloader:" resource packaged inside a JAR reads from the wrong offset
+        file.close
+        MemoryFile.new(File.binread(source))
+      end
+
+      # probes after a readline, a broken pread still looks correct while the stream is at 0
+      def preads?(file)
+        row = file.readline("\n")
+        file.pread(row.bytesize, 0) == row
+      rescue StandardError
+        false
       end
     end
 
