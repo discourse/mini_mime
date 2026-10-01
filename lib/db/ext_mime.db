@@ -450,6 +450,7 @@ gdl           model/vnd.gdl                                                     
 geo           application/vnd.dynageo                                                   base64          
 gex           application/vnd.geometry-explorer                                         base64          
 ggb           application/vnd.geogebra.file                                             base64          
+ggp           application/vnd.geogebra.pinboard                                         base64          
 ggs           application/vnd.geogebra.slides                                           base64          
 ggt           application/vnd.geogebra.tool                                             base64          
 ghf           application/vnd.groove-help                                               base64          
@@ -1242,6 +1243,7 @@ srf           image/x-sony-srf                                                  
 srl           application/sereal                                                        base64          
 srt           application/x-subrip                                                      base64          
 sru           application/sru+xml                                                       base64          
+srw           image/x-raw-samsung                                                       base64          
 srx           application/sparql-results+xml                                            base64          
 ss7           application/x-sas-program-data                                            base64          
 ssdl          application/ssdl+xml                                                      base64          
