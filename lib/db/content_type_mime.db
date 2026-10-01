@@ -242,6 +242,7 @@ xbd         application/vnd.fujixerox.docuworks.binder                          
 fzs         application/vnd.fuzzysheet                                                base64          
 txd         application/vnd.genomatix.tuxedo                                          base64          
 ggb         application/vnd.geogebra.file                                             base64          
+ggp         application/vnd.geogebra.pinboard                                         base64          
 ggs         application/vnd.geogebra.slides                                           base64          
 ggt         application/vnd.geogebra.tool                                             base64          
 gex         application/vnd.geometry-explorer                                         base64          
@@ -920,6 +921,7 @@ ptx         image/x-raw-pentax                                                  
 iiq         image/x-raw-phaseone                                                      base64          
 rwz         image/x-raw-rawzor                                                        base64          
 r3d         image/x-raw-red                                                           base64          
+srw         image/x-raw-samsung                                                       base64          
 x3f         image/x-raw-sigma                                                         base64          
 arw         image/x-raw-sony                                                          base64          
 rgb         image/x-rgb                                                               base64          
